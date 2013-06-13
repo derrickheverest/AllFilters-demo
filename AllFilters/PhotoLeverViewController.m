@@ -15,10 +15,19 @@
 #import "PhotoLeverViewController.h"
 #import "DHPairOfKeyAndValue.h"
 
+const NSString *mykInputIntensity = @"inputIntensity";
+const NSString *mykInputColor = @"inputColor";
+const NSString *mykInputSaturation = @"inputSaturation";
+const NSString *mykInputBrightness = @"inputBrightness";
+const NSString *mykInputContrast = @"inputContrast";
+
 
 @interface PhotoLeverViewController ()
 //@property (strong, nonatomic) NSString *barnacle;
 - (BOOL)loadDefaultPhoto;
+- (void)loadDefaultFilter;
+- (void)loadDefaultLabels;
+- (void)loadDefaultSliders;
 @end
 
 @implementation PhotoLeverViewController
@@ -35,66 +44,48 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self loadDefaultPhoto];
+    [self loadDefaultLabels];
+    [self loadDefaultSliders];
+    [self loadDefaultFilter];
     
-    /**preset sliders*/
-    if (_willPresetSliders) {
-        [[self GetSliderValue_0] setMaximumValue:_MaxSliderVal0];
-        [[self GetSliderValue_0] setMinimumValue:_MinSliderVal0];
-        [[self GetSliderValue_0] setValue:_NewSliderVal0];
-        
-        [[self GetSliderValue_1] setMaximumValue:_MaxSliderVal1];
-        [[self GetSliderValue_1] setMinimumValue:_MinSliderVal1];
-        [[self GetSliderValue_1] setValue:_NewSliderVal1];
-        
-        [[self GetSliderValue_2] setMaximumValue:_MaxSliderVal2];
-        [[self GetSliderValue_2] setMinimumValue:_MinSliderVal2];
-        [[self GetSliderValue_2] setValue:_NewSliderVal2];
-        
-        [[self GetSliderValue_3] setMaximumValue:_MaxSliderVal3];
-        [[self GetSliderValue_3] setMinimumValue:_MinSliderVal3];
-        [[self GetSliderValue_3] setValue:_NewSliderVal3];
-        
-        [[self GetSliderValue_4] setMaximumValue:_MaxSliderVal4];
-        [[self GetSliderValue_4] setMinimumValue:_MinSliderVal4];
-        [[self GetSliderValue_4] setValue:_NewSliderVal4];
-        
-        [self ChangeSliderValue_0:[self GetSliderValue_0]];
-        [self ChangeSliderValue_1:[self GetSliderValue_1]];
-        [self ChangeSliderValue_2:[self GetSliderValue_2]];
-        [self ChangeSliderValue_3:[self GetSliderValue_3]];
-        [self ChangeSliderValue_4:[self GetSliderValue_4]];
-    }
+    //
+    [self ChangeSliderValue_0:[self GetSliderValue_0]];
+    [self ChangeSliderValue_1:[self GetSliderValue_1]];
+    [self ChangeSliderValue_2:[self GetSliderValue_2]];
+    [self ChangeSliderValue_3:[self GetSliderValue_3]];
+    [self ChangeSliderValue_4:[self GetSliderValue_4]];
     
     if (_lastColor == nil) {
         _lastColor = [CIColor colorWithString:@"0.5 0.5 0.5 1.0"];
     }
     
     /**Set labels and connect modifiers*/
-    if ([self modifier_0]) {
-        [[self NameSlider_0] setText:[[self modifier_0] getKey]];
-    }else{
-        [[self NameSlider_0] setText:@""];
-    }
-    if ([self modifier_1]) {
-        [[self NameSlider_1] setText:[[self modifier_1] getKey]];
-    }else{
-         [[self NameSlider_1] setText:@""];
-    }
-    if ([self modifier_2]) {
-        [[self NameSlider_2] setText:[[self modifier_2] getKey]];
-    }else{
-         [[self NameSlider_2] setText:@""];
-    }
-    if ([self modifier_3]) {
-        [[self NameSlider_3] setText:[[self modifier_3] getKey]];
-    }else{
-         [[self NameSlider_3] setText:@""];
-    }
-    if ([self modifier_4]) {
-        [[self NameSlider_4] setText:[[self modifier_4] getKey]];
-    }else{
-         [[self NameSlider_4] setText:@""];
-    }
+//    if ([self modifier_0]) {
+//        [[self NameSlider_0] setText:[[self modifier_0] getKey]];
+//    }else{
+//        [[self NameSlider_0] setText:@""];
+//    }
+//    if ([self modifier_1]) {
+//        [[self NameSlider_1] setText:[[self modifier_1] getKey]];
+//    }else{
+//         [[self NameSlider_1] setText:@""];
+//    }
+//    if ([self modifier_2]) {
+//        [[self NameSlider_2] setText:[[self modifier_2] getKey]];
+//    }else{
+//         [[self NameSlider_2] setText:@""];
+//    }
+//    if ([self modifier_3]) {
+//        [[self NameSlider_3] setText:[[self modifier_3] getKey]];
+//    }else{
+//         [[self NameSlider_3] setText:@""];
+//    }
+//    if ([self modifier_4]) {
+//        [[self NameSlider_4] setText:[[self modifier_4] getKey]];
+//    }else{
+//         [[self NameSlider_4] setText:@""];
+//    }
     
     /**this is done here as opposed to prepareforsegue because here,things
      the image is susceptible to being set.*/
@@ -275,5 +266,104 @@
     
     //context determines if it is using cpu or gpu.  nil for default settings
     [self setContext:[CIContext contextWithOptions:nil]];
+    return (_beginImage && _context)?YES:NO;
+}
+- (void)loadDefaultFilter{
+    [self SpecifyFilterToBe:@"CISepiaTone"];
+}
+
+#pragma mark - SpecifyFilter
+- (void)SpecifyFilterToBe:(NSString *)FilterName{
+    /**decide filter*/
+    [self setFilter:[CIFilter filterWithName:FilterName]];
+    [[self filter] setValue:[self beginImage] forKey:kCIInputImageKey];
+    /**change add label and connect slider to a method*/
+    [self AdjustSliderInfoAt:0
+                    WithDict:[[CIFilter filterWithName:FilterName] attributes]
+                       ofKey:@"inputIntensity"];
+    [[self NameSlider_0] setText:@"inputIntensity"];//hard coded for now
+#warning todo: connect method to slider
+}
+
+#pragma mark - modify sliders and labels
+- (BOOL)SetLabelAt:(NSInteger) index toName:(NSString *)name{
+    if(index < 0 || index > 4) return false;
+    NSArray *sliderNameArray = @[_NameSlider_0,
+                                 _NameSlider_1,
+                                 _NameSlider_2,
+                                 _NameSlider_3,
+                                 _NameSlider_4];
+    UILabel *sliderName = sliderNameArray[index];
+    [sliderName setText:name];
+    return true;
+}
+- (BOOL)AdjustSliderInfoAt:(NSInteger)index
+                  WithDict:(NSDictionary *)filter_Attributes
+                     ofKey:(NSString *) key
+{
+    if(index < 0 || index > 4) return false;
+    //index must be 0,1,2,3,4
+    NSArray *sliderArray = @[_GetSliderValue_0,
+                             _GetSliderValue_1,
+                             _GetSliderValue_2,
+                             _GetSliderValue_3,
+                             _GetSliderValue_4];
+    //check if key exists.  ie inputIntensity
+    NSDictionary *attrib_dict = filter_Attributes[key];
+    //if it exists than modify the label and the slider
+    //if it doesn't exist then return false'
+    if( attrib_dict ){
+        UISlider *sliderRef = sliderArray[index];
+        [sliderRef setMaximumValue:[attrib_dict[@"CIAttributeSliderMax"] floatValue]];
+        [sliderRef setMinimumValue:[attrib_dict[@"CIAttributeSliderMin"] floatValue]];
+        [sliderRef setValue:[attrib_dict[@"CIAttributeDefault"] floatValue]];
+        return true;
+    }
+    return false;
+}
+- (void)loadDefaultLabels{
+    [self SetLabelAt:0 toName:@""];
+    [self SetLabelAt:1 toName:@""];
+    [self SetLabelAt:2 toName:@""];
+    [self SetLabelAt:3 toName:@""];
+    [self SetLabelAt:4 toName:@""];
+}
+- (void)loadDefaultSliders{
+    [[self GetSliderValue_0] setMaximumValue:0];
+    [[self GetSliderValue_0] setMinimumValue:0];
+    [[self GetSliderValue_0] setValue:0];
+    
+    [[self GetSliderValue_1] setMaximumValue:0];
+    [[self GetSliderValue_1] setMinimumValue:0];
+    [[self GetSliderValue_1] setValue:0];
+    
+    [[self GetSliderValue_2] setMaximumValue:0];
+    [[self GetSliderValue_2] setMinimumValue:0];
+    [[self GetSliderValue_2] setValue:0];
+    
+    [[self GetSliderValue_3] setMaximumValue:0];
+    [[self GetSliderValue_3] setMinimumValue:0];
+    [[self GetSliderValue_3] setValue:0];
+    
+    [[self GetSliderValue_4] setMaximumValue:0];
+    [[self GetSliderValue_4] setMinimumValue:0];
+    [[self GetSliderValue_4] setValue:0];
 }
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

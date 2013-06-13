@@ -18,11 +18,11 @@
 #define mySELInputBrightness @selector(modInputBrightnessByThisValue:)
 #define mySELInputContrast @selector(modInputContrastByThisValue:)
 
-const NSString *mykInputIntensity = @"inputIntensity";
-const NSString *mykInputColor = @"inputColor";
-const NSString *mykInputSaturation = @"inputSaturation";
-const NSString *mykInputBrightness = @"inputBrightness";
-const NSString *mykInputContrast = @"inputContrast";
+extern const NSString *mykInputIntensity;// = @"inputIntensity";
+extern const NSString *mykInputColor;// = @"inputColor";
+extern const NSString *mykInputSaturation;// = @"inputSaturation";
+extern const NSString *mykInputBrightness;// = @"inputBrightness";
+extern const NSString *mykInputContrast;// = @"inputContrast";
 
 @interface ViewController ()
 
