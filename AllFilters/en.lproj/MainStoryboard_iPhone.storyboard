@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2WP-yF-WJ8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -358,6 +358,57 @@
             <point key="canvasLocation" x="563" y="-164"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="PhotoLeverViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoLeverViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="ChangeSliderValue_0:"/>
+                <relationship kind="action" name="ChangeSliderValue_1:"/>
+                <relationship kind="action" name="ChangeSliderValue_2:"/>
+                <relationship kind="action" name="ChangeSliderValue_3:"/>
+                <relationship kind="action" name="ChangeSliderValue_4:"/>
+                <relationship kind="action" name="Choose2SavePhoto:"/>
+                <relationship kind="action" name="ChooseNewPhoto_b:"/>
+                <relationship kind="action" name="back:"/>
+                <relationship kind="outlet" name="FacePic" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="GetSliderValue_0" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="GetSliderValue_1" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="GetSliderValue_2" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="GetSliderValue_3" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="GetSliderValue_4" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="NameSlider_0" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="NameSlider_1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="NameSlider_2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="NameSlider_3" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="NameSlider_4" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PhotoWheelViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoWheelViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="Choose2SavePhoto:"/>
+                <relationship kind="action" name="ChooseNewPhoto_b:"/>
+                <relationship kind="action" name="back:"/>
+                <relationship kind="outlet" name="FacePic" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="WheelOfFilters" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="Button:"/>
+                <relationship kind="action" name="unwindToFilterTableViewController:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="outlet" name="WheelOfFilters" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="WildCard" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

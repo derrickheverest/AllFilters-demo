@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ViewController : UIViewController //<UIPickerViewDataSource, UIPickerViewDelegate>
 - (IBAction)Button:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *WildCard;
 @property (weak, nonatomic) IBOutlet UIPickerView *WheelOfFilters;

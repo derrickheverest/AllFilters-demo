@@ -10,7 +10,7 @@
 #import <AssetsLibrary/AssetsLibrary.h> //for saving pics to library
 
 @class DHPairOfKeyAndValue;
-@interface PhotoLeverViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationBarDelegate>
+@interface PhotoLeverViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 //@property (nonatomic, assign) id delegate;
 @property (strong, nonatomic) CIContext *context;
 @property (strong, nonatomic) CIFilter *filter;

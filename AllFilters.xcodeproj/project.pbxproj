@@ -118,15 +118,15 @@
 			children = (
 				BDCE3EDE176694AD00B2E1AE /* AppDelegate.h */,
 				BDCE3EDF176694AD00B2E1AE /* AppDelegate.m */,
-				BDCE3EE7176694AD00B2E1AE /* MainStoryboard_iPhone.storyboard */,
 				BD4D04461769197B00DFEA11 /* PhotoWheelViewController.h */,
 				BD4D04471769197B00DFEA11 /* PhotoWheelViewController.m */,
+				BD4B724617679CA200CB9CC4 /* DHPairOfKeyAndValue.h */,
+				BD4B724717679CA200CB9CC4 /* DHPairOfKeyAndValue.m */,
+				BDCE3EE7176694AD00B2E1AE /* MainStoryboard_iPhone.storyboard */,
 				BDCE3EF5176695B500B2E1AE /* PhotoLeverViewController.h */,
 				BDCE3EF6176695B500B2E1AE /* PhotoLeverViewController.m */,
 				BDCE3EED176694AD00B2E1AE /* ViewController.h */,
 				BDCE3EEE176694AD00B2E1AE /* ViewController.m */,
-				BD4B724617679CA200CB9CC4 /* DHPairOfKeyAndValue.h */,
-				BD4B724717679CA200CB9CC4 /* DHPairOfKeyAndValue.m */,
 				BDCE3ED6176694AD00B2E1AE /* Supporting Files */,
 			);
 			path = AllFilters;

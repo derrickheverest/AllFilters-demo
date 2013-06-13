@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface PhotoWheelViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationBarDelegate>
+@interface PhotoWheelViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *WheelOfFilters;
 @property (strong, nonatomic) NSArray *AllFilterNames;

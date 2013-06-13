@@ -200,7 +200,11 @@ numberOfRowsInComponent:(NSInteger)component
     /**All 90+ filters should techically work. In the worse case it will
      crash.  In the disappointing case, it wil show white.  
      
-     below is an array of filters that either show a good picture or a moded picture*/
+     below is an array of filters that either show a good picture or a moded picture
+     
+     W - means white picture
+     C - means crash app
+     */
     return @[
              /*W*///@"CIAdditionCompositing",
              /*W*///@"CIAffineClamp",

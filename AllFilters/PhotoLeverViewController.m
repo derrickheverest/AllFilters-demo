@@ -16,7 +16,9 @@
 #import "DHPairOfKeyAndValue.h"
 
 
-@interface PhotoLeverViewController () 
+@interface PhotoLeverViewController ()
+//@property (strong, nonatomic) NSString *barnacle;
+- (BOOL)loadDefaultPhoto;
 @end
 
 @implementation PhotoLeverViewController
@@ -257,5 +259,21 @@
 - (void) modInputContrastByThisValue:(NSNumber *)val
 {
     [[self filter] setValue:val forKey:@"inputContrast"];
+}
+
+
+#pragma mark - Load Defaults
+- (BOOL)loadDefaultPhoto{
+    //loading default image of flowers
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"png"];
+    //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"photo" ofType:@"png"];// takes about 7 seconds on simulator
+    //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"photo" ofType:@"JPG"];//too large and slow.  takes several minutes to do anything on my iPhone 3gs, takes about 7 seconds on sim
+    NSURL *fileNameAndPath = [NSURL fileURLWithPath:filePath];
+    
+    [self setBeginImage:[CIImage imageWithContentsOfURL:fileNameAndPath]];
+    
+    
+    //context determines if it is using cpu or gpu.  nil for default settings
+    [self setContext:[CIContext contextWithOptions:nil]];
 }
 @end

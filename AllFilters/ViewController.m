@@ -35,7 +35,7 @@ const NSString *mykInputContrast = @"inputContrast";
     [super viewDidLoad];
     _AllFilterNames = [CIFilter filterNamesInCategory:kCICategoryBuiltIn];
     
-    //[self logAllFilters];
+    [self logAllFilters];
 	// Do any additional setup after loading the view, typically from a nib.
     //[[self WheelOfFilters] setDelegate:self];
    
@@ -80,7 +80,6 @@ const NSString *mykInputContrast = @"inputContrast";
     //choose specific filter based on the button chosen
     //and preset the slider values away from default.
     if ([[sender restorationIdentifier] isEqualToString:@"SepiaTone"]) {
-        
         
         /**decide filter*/
         [destination setFilter:[CIFilter filterWithName:@"CISepiaTone"]];
