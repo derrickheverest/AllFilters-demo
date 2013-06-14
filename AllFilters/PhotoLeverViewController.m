@@ -553,7 +553,7 @@ numberOfRowsInComponent:(NSInteger)component
     //temporary start with three
     //return @[@"CIColorMonochrome",
    //          @"CISepiaTone",
-   //          @"CIColorControls"];
+   //         @"CIColorControls"];
 #warning todo: Go through each filter and test to see that you have properly handled the levers.  there may be more than just "inputIntensity" so look it up!
     /**All 90+ filters should techically work. In the worse case it will
      crash.  In the disappointing case, it wil show white.
