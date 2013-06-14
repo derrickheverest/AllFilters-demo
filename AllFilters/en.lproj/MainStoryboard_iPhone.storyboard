@@ -4,90 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="5">
-            <objects>
-                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="SepiaTone" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJq-HV-yhS">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Sepia Tone">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Button:" destination="2" eventType="touchUpInside" id="wa4-ck-8OM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Monochrome" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBW-Sy-1u5">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="MonoChrome">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Button:" destination="2" eventType="touchUpInside" id="tn0-8A-sd4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="ColorControls" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owD-c3-Fg9">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="ColorControls">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Button:" destination="2" eventType="touchUpInside" id="FsO-tz-SFU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="WildCard" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccD-EH-bi7">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="WildCard">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Button:" destination="2" eventType="touchUpInside" id="GO0-Lf-OPl"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="dJq-HV-yhS" firstAttribute="top" secondItem="3" secondAttribute="top" constant="76" id="045-pK-7s2"/>
-                            <constraint firstItem="ccD-EH-bi7" firstAttribute="top" secondItem="owD-c3-Fg9" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="FpL-XU-5ky"/>
-                            <constraint firstItem="owD-c3-Fg9" firstAttribute="leading" secondItem="uBW-Sy-1u5" secondAttribute="leading" type="default" id="JgI-aU-vUX"/>
-                            <constraint firstItem="ccD-EH-bi7" firstAttribute="centerX" secondItem="owD-c3-Fg9" secondAttribute="centerX" type="default" id="REg-t1-IFK"/>
-                            <constraint firstItem="uBW-Sy-1u5" firstAttribute="top" secondItem="dJq-HV-yhS" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="UNK-FN-Qtf"/>
-                            <constraint firstAttribute="trailing" secondItem="ccD-EH-bi7" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Y2v-SS-hO1"/>
-                            <constraint firstItem="ccD-EH-bi7" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="hAV-B8-7ZT"/>
-                            <constraint firstItem="uBW-Sy-1u5" firstAttribute="centerX" secondItem="dJq-HV-yhS" secondAttribute="centerX" type="default" id="nEl-em-R5b"/>
-                            <constraint firstItem="owD-c3-Fg9" firstAttribute="top" secondItem="3" secondAttribute="top" constant="187" id="tyT-rZ-O1K"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <segue destination="2WP-yF-WJ8" kind="modal" identifier="segue2uiimageview" id="gog-mR-Um3"/>
-                        <segue destination="Bkf-WZ-kF3" kind="modal" identifier="segue2wheeloffilter" id="xVu-hc-u8X"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="77" y="12"/>
-        </scene>
         <!--Photo Wheel View Controller-->
         <scene sceneID="GrO-G9-f6U">
             <objects>
@@ -394,18 +310,6 @@
                 <relationship kind="action" name="back:"/>
                 <relationship kind="outlet" name="FacePic" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="WheelOfFilters" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="Button:"/>
-                <relationship kind="action" name="unwindToFilterTableViewController:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="outlet" name="WheelOfFilters" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="WildCard" candidateClass="UIButton"/>
             </relationships>
         </class>
     </classes>
