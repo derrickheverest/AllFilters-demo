@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface DHPairOfKeyAndValue : NSObject
+@property (strong, nonatomic) NSString *label;
 @property (strong, nonatomic) NSString *key;
 @property SEL sel;
--(void) setKey:(NSString *)key setSEL:(SEL) sel;
--(NSString *) getKey;
--(SEL) getSEL;
+-(id) setKey:(NSString *)key setSEL:(SEL) sel setLabel:(NSString *)L;
 @end

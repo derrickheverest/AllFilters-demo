@@ -9,17 +9,10 @@
 #import "DHPairOfKeyAndValue.h"
 
 @implementation DHPairOfKeyAndValue
--(void) setKey:(NSString *)k setSEL:(SEL) s{
+-(id) setKey:(NSString *)k setSEL:(SEL) s setLabel:(NSString *)L{
     self->_key = k;
     self->_sel = s;
-}
--(NSString *) getKey{
-    if (self->_key) {
-        return self->_key;
-    }
-    return nil;
-}
--(SEL) getSEL{
-    return self->_sel;
+    self->_label = L;
+    return self;
 }
 @end

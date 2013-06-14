@@ -15,12 +15,21 @@
 #import "PhotoLeverViewController.h"
 #import "DHPairOfKeyAndValue.h"
 
-const NSString *mykInputIntensity = @"inputIntensity";
-const NSString *mykInputColor = @"inputColor";
-const NSString *mykInputSaturation = @"inputSaturation";
-const NSString *mykInputBrightness = @"inputBrightness";
-const NSString *mykInputContrast = @"inputContrast";
+#define mySELInputIntensity @selector(modInputIntensityByThisValue:)
+#define mySELInputColorRed @selector(modInputColorRedByThisValue:)
+#define mySELInputColorGreen @selector(modInputColorGreenByThisValue:)
+#define mySELInputColorBlue @selector(modInputColorBlueByThisValue:)
+#define mySELInputSaturation @selector(modInputSaturationByThisValue:)
+#define mySELInputBrightness @selector(modInputBrightnessByThisValue:)
+#define mySELInputContrast @selector(modInputContrastByThisValue:)
 
+#define mykInputIntensity @"inputIntensity"
+#define mykInputColor @"inputColor"
+#define mykInputSaturation @"inputSaturation"
+#define mykInputBrightness @"inputBrightness"
+#define mykInputContrast @"inputContrast"
+
+NSDictionary *SupportedLevers = nil;
 
 @interface PhotoLeverViewController ()
 //@property (strong, nonatomic) NSString *barnacle;
@@ -28,6 +37,7 @@ const NSString *mykInputContrast = @"inputContrast";
 - (void)loadDefaultFilter;
 - (void)loadDefaultLabels;
 - (void)loadDefaultSliders;
+- (void)loadSupportedLevers;
 @end
 
 @implementation PhotoLeverViewController
@@ -44,6 +54,7 @@ const NSString *mykInputContrast = @"inputContrast";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self loadSupportedLevers];
     [self loadDefaultPhoto];
     [self loadDefaultLabels];
     [self loadDefaultSliders];
@@ -212,6 +223,36 @@ const NSString *mykInputContrast = @"inputContrast";
                              completion:NULL];
 }
 
+#pragma mark - Supported Levers
+- (void) loadSupportedLevers{
+    if(SupportedLevers){ return;}
+    
+    SupportedLevers =
+    @{mykInputColor:[NSArray arrayWithObjects:
+                     [[DHPairOfKeyAndValue new] setKey:mykInputColor
+                                                setSEL:mySELInputColorRed
+                                              setLabel:@"Red"],
+                     [[DHPairOfKeyAndValue new] setKey:mykInputColor
+                                                setSEL:mySELInputColorGreen
+                                              setLabel:@"Green"],
+                     [[DHPairOfKeyAndValue new] setKey:mykInputColor
+                                                setSEL:mySELInputColorBlue
+                                              setLabel:@"Blue"],
+                     nil],
+      mykInputIntensity: [[DHPairOfKeyAndValue new] setKey:mykInputIntensity
+                                                    setSEL:mySELInputIntensity
+                                                  setLabel:@"Intensity"],
+      mykInputSaturation: [[DHPairOfKeyAndValue new] setKey:mykInputSaturation
+                                                     setSEL:mySELInputSaturation
+                                                   setLabel:@"Saturation"],
+      mykInputBrightness: [[DHPairOfKeyAndValue new] setKey:mykInputBrightness
+                                                     setSEL:mySELInputBrightness
+                                                   setLabel:@"Brightness"],
+      mykInputContrast: [[DHPairOfKeyAndValue new] setKey:mykInputContrast
+                                                   setSEL:mySELInputContrast
+                                                 setLabel:@"Contrast"]
+      };
+}
 - (void) modInputIntensityByThisValue:(NSNumber *)val{
      [[self filter] setValue:val forKey:@"inputIntensity"];
 }
@@ -269,7 +310,8 @@ const NSString *mykInputContrast = @"inputContrast";
     return (_beginImage && _context)?YES:NO;
 }
 - (void)loadDefaultFilter{
-    [self SpecifyFilterToBe:@"CISepiaTone"];
+    //[self SpecifyFilterToBe:@"CISepiaTone"];
+    [self SpecifyFilterToBe:@"CIColorMonochrome"];
 }
 
 #pragma mark - SpecifyFilter
@@ -278,13 +320,72 @@ const NSString *mykInputContrast = @"inputContrast";
     [self setFilter:[CIFilter filterWithName:FilterName]];
     [[self filter] setValue:[self beginImage] forKey:kCIInputImageKey];
     /**change add label and connect slider to a method*/
-    [self AdjustSliderInfoAt:0
-                    WithDict:[[CIFilter filterWithName:FilterName] attributes]
-                       ofKey:@"inputIntensity"];
-    [[self NameSlider_0] setText:@"inputIntensity"];//hard coded for now
-#warning todo: connect method to slider
+#warning todo: need to debug my generalization.  It works for speia tone, but it is messing up on the cicolormonochrome.  i think I am tok exhausted to really figure it out at this time
+    int i = 0;
+    NSDictionary *FilterAttributes = [[CIFilter filterWithName:FilterName] attributes];
+    for (NSString *validKey in FilterAttributes.allKeys) {
+        id dictResult = SupportedLevers[validKey];
+        if (dictResult == nil) { continue;}
+        i = ((_modifier_0)?1:0) + ((_modifier_1)?1:0) + ((_modifier_2)?1:0)
+        + ((_modifier_3)?1:0) + ((_modifier_4)?1:0);
+        if( i > 4 ){ break;}
+        
+//        [self AdjustSliderInfoAt:i
+//                        WithDict:[[CIFilter filterWithName:FilterName] attributes]
+//                           ofKey:validKey];
+        [self connectSliderToModifierAt:i
+                   withDictionaryResult:dictResult
+                 WhenMatchingFilterName:FilterName];
+        
+        
+    }
 }
-
+- (BOOL)connectSliderToModifierAt:(NSInteger)index
+             withDictionaryResult:(id)dictResult
+           WhenMatchingFilterName:(NSString *)FilterName{
+    if (index < 0 || index > 4) {
+        @throw [NSException exceptionWithName:@"Out Of Range Exception"
+                                       reason:@"index must be 0,1,2,3, or 4" userInfo:nil];
+        return false;
+    }
+    //huh? what does this line do?
+    //if(![[[CIFilter filterWithName:FilterName] attributes] objectForKey:[dictResult key]]) {return false;}
+    
+    if ([dictResult isKindOfClass:[DHPairOfKeyAndValue class]]) {
+        [self AdjustSliderInfoAt:index
+                        WithDict:[[CIFilter filterWithName:FilterName] attributes]
+                           ofKey:[dictResult key]];
+        [self SetLabelAt:index toName:[dictResult label]];
+        switch (index) {
+            case 0: _modifier_0 = dictResult;
+                break;
+            case 1: _modifier_1 = dictResult;
+                break;
+            case 2: _modifier_2 = dictResult;
+                break;
+            case 3: _modifier_3 = dictResult;
+                break;
+            case 4: _modifier_4 = dictResult;
+                break;
+            default:
+                @throw [NSException exceptionWithName:@"Out Of Range Exception"
+                                               reason:@"index must be 0,1,2,3, or 4" userInfo:nil];
+                break;
+        }
+    }else if([dictResult isKindOfClass:[NSArray class]]){
+        for (int offset = 0; offset < [dictResult count]; ++offset) {
+            [self connectSliderToModifierAt:index + offset
+                       withDictionaryResult:dictResult[offset]
+                     WhenMatchingFilterName:FilterName];
+        }
+    }else{
+        @throw [NSException
+                exceptionWithName:@"Unsupported Lever Class Exception"
+                reason:@"This is called when a key in the dictionary is valid, but the class of the value has not been given a conditionaly branch to deal with that class properly"
+                userInfo:nil];
+    }
+    return true;
+}
 #pragma mark - modify sliders and labels
 - (BOOL)SetLabelAt:(NSInteger) index toName:(NSString *)name{
     if(index < 0 || index > 4) return false;
@@ -301,7 +402,11 @@ const NSString *mykInputContrast = @"inputContrast";
                   WithDict:(NSDictionary *)filter_Attributes
                      ofKey:(NSString *) key
 {
-    if(index < 0 || index > 4) return false;
+    if(index < 0 || index > 4) {
+        @throw [NSException exceptionWithName:@"Out Of Range Exception"
+                                       reason:@"index must be 0,1,2,3, or 4" userInfo:nil];
+        return false;
+    }
     //index must be 0,1,2,3,4
     NSArray *sliderArray = @[_GetSliderValue_0,
                              _GetSliderValue_1,
@@ -313,10 +418,21 @@ const NSString *mykInputContrast = @"inputContrast";
     //if it exists than modify the label and the slider
     //if it doesn't exist then return false'
     if( attrib_dict ){
+        if([attrib_dict[@"CIAttributeClass"] isEqualToString:@"NSNumber"]){
         UISlider *sliderRef = sliderArray[index];
         [sliderRef setMaximumValue:[attrib_dict[@"CIAttributeSliderMax"] floatValue]];
         [sliderRef setMinimumValue:[attrib_dict[@"CIAttributeSliderMin"] floatValue]];
         [sliderRef setValue:[attrib_dict[@"CIAttributeDefault"] floatValue]];
+        }else if([attrib_dict[@"CIAttributeClass"] isEqualToString:@"CIColor"]){
+            UISlider *sliderRef = sliderArray[index];
+            [sliderRef setMaximumValue:1.0];
+            [sliderRef setMinimumValue:0.0];
+            [sliderRef setValue:0.8];
+        }else{
+            @throw [NSException exceptionWithName:@"Unknown CIAttributeClass"
+                                           reason:@"The type of attribute class will tell the program what kinds of data to find in the dictionary.  It will use this info to determine the best way to handle the sliders. ie. NSNumber woudl have a slider min and max, but an CIColor would not have that, you'd have to put in a default"
+                                         userInfo:nil];
+        }
         return true;
     }
     return false;
