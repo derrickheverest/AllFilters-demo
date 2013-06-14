@@ -158,31 +158,46 @@ NSDictionary *SupportedLevers = nil;
 
 - (IBAction)ChangeSliderValue_0:(UISlider *)sender {
     if (_modifier_0 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self performSelector:[_modifier_0 sel] withObject:@(sender.value)];
+#pragma clang diagnostic pop
     //[self modInputIntensityByThisValue:@(sender.value)];
     [self reapplyFiltersToCurrentImage];
 }
 - (IBAction)ChangeSliderValue_1:(UISlider *)sender{
     if (_modifier_1 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self performSelector:[_modifier_1 sel] withObject:@(sender.value)];
+#pragma clang diagnostic pop
     [self reapplyFiltersToCurrentImage];
 }
 
 - (IBAction)ChangeSliderValue_2:(UISlider *)sender{
     if (_modifier_2 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self performSelector:[_modifier_2 sel] withObject:@(sender.value)];
+#pragma clang diagnostic pop
     [self reapplyFiltersToCurrentImage];
 }
 
 - (IBAction)ChangeSliderValue_3:(UISlider *)sender{
     if (_modifier_3 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self performSelector:[_modifier_3 sel] withObject:@(sender.value)];
+#pragma clang diagnostic pop
     [self reapplyFiltersToCurrentImage];
 }
 
 - (IBAction)ChangeSliderValue_4:(UISlider *)sender{
     if (_modifier_4 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self performSelector:[_modifier_4 sel] withObject:@(sender.value)];
+#pragma clang diagnostic pop
     [self reapplyFiltersToCurrentImage];
 }
 
