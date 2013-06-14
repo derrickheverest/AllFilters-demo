@@ -38,6 +38,7 @@ NSDictionary *SupportedLevers = nil;
 - (void)loadDefaultLabels;
 - (void)loadDefaultSliders;
 - (void)loadSupportedLevers;
+- (void)loadDefaultModifiers;
 @end
 
 @implementation PhotoLeverViewController
@@ -54,7 +55,8 @@ NSDictionary *SupportedLevers = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [_WheelOfFilters setHidden:YES];
+    _ListOfFilters = [self FillWheelWithThese];
     [self loadSupportedLevers];
     [self loadDefaultPhoto];
     [self loadDefaultLabels];
@@ -296,6 +298,10 @@ NSDictionary *SupportedLevers = nil;
 
 
 #pragma mark - Load Defaults
+-(void)loadDefaultModifiers{
+    _modifier_0 = _modifier_1 = _modifier_2 =
+    _modifier_3 = _modifier_4 = nil;
+}
 - (BOOL)loadDefaultPhoto{
     //loading default image of flowers
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"png"];
@@ -321,7 +327,7 @@ NSDictionary *SupportedLevers = nil;
     [self setFilter:[CIFilter filterWithName:FilterName]];
     [[self filter] setValue:[self beginImage] forKey:kCIInputImageKey];
     /**change add label and connect slider to a method*/
-#warning todo: need to debug my generalization.  It works for speia tone, but it is messing up on the cicolormonochrome.  i think I am tok exhausted to really figure it out at this time
+  
     int i = 0;
     NSDictionary *FilterAttributes = [[CIFilter filterWithName:FilterName] attributes];
     for (NSString *validKey in FilterAttributes.allKeys) {
@@ -330,15 +336,9 @@ NSDictionary *SupportedLevers = nil;
         i = ((_modifier_0)?1:0) + ((_modifier_1)?1:0) + ((_modifier_2)?1:0)
         + ((_modifier_3)?1:0) + ((_modifier_4)?1:0);
         if( i > 4 ){ break;}
-        
-//        [self AdjustSliderInfoAt:i
-//                        WithDict:[[CIFilter filterWithName:FilterName] attributes]
-//                           ofKey:validKey];
         [self connectSliderToModifierAt:i
                    withDictionaryResult:dictResult
                  WhenMatchingFilterName:FilterName];
-        
-        
     }
 }
 - (BOOL)connectSliderToModifierAt:(NSInteger)index
@@ -387,6 +387,42 @@ NSDictionary *SupportedLevers = nil;
     }
     return true;
 }
+- (void) changeFilter2:(NSString *)FilterName{
+    //context determines if it is using cpu or gpu.  nil for default settings
+    [self setContext:[CIContext contextWithOptions:nil]];
+    
+    [self setFilter:[CIFilter filterWithName:FilterName]];
+    [[self filter] setValuesForKeysWithDictionary:@{kCIInputImageKey:[self beginImage]}];
+    
+    /**this is done here as opposed to prepareforsegue because here,things
+     the image is susceptible to being set.*/
+    
+    //convert CIImage to CGImage because CIImage can't go directly to UIImage
+    CIImage *outputImage = [[self filter] outputImage];
+    CGImageRef cgimg =
+    [[self context] createCGImage:outputImage
+                         fromRect:[outputImage extent]];
+    
+    //CGImage to UIimage
+    UIImage *newImage = [UIImage imageWithCGImage:cgimg];
+    [[self FacePic] setImage:newImage];
+    
+    //house keeping
+    CGImageRelease(cgimg);
+    
+   //
+    [self loadDefaultModifiers];
+    [self loadDefaultSliders];
+    [self loadDefaultLabels];
+    [self SpecifyFilterToBe:FilterName];
+    [self ChangeSliderValue_0:[self GetSliderValue_0]];
+    [self ChangeSliderValue_1:[self GetSliderValue_1]];
+    [self ChangeSliderValue_2:[self GetSliderValue_2]];
+    [self ChangeSliderValue_3:[self GetSliderValue_3]];
+    [self ChangeSliderValue_4:[self GetSliderValue_4]];
+}
+
+
 #pragma mark - modify sliders and labels
 - (BOOL)SetLabelAt:(NSInteger) index toName:(NSString *)name{
     if(index < 0 || index > 4) return false;
@@ -418,6 +454,8 @@ NSDictionary *SupportedLevers = nil;
     NSDictionary *attrib_dict = filter_Attributes[key];
     //if it exists than modify the label and the slider
     //if it doesn't exist then return false'
+#warning todo: need to debug my generalization.  It works for speia tone, monochrome and color control.  it will crash when it finds something that isn't nsnumber or cicolor.  find out what they are, you'd have to go through all of them.
+    
     if( attrib_dict ){
         if([attrib_dict[@"CIAttributeClass"] isEqualToString:@"NSNumber"]){
         UISlider *sliderRef = sliderArray[index];
@@ -467,6 +505,29 @@ NSDictionary *SupportedLevers = nil;
     [[self GetSliderValue_4] setValue:0];
 }
 #pragma mark - Handling the Wheel of Filters
+#pragma mark - PickerView DataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;//sets the number of columns
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component
+{
+    return _ListOfFilters.count;//sets the number of rows
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
+{
+    return _ListOfFilters[row];//returns the corresponding filter name
+}
+#pragma mark - PickerView delegate
+- (void)pickerView:(UIPickerView *)pickerView
+      didSelectRow:(NSInteger)row
+       inComponent:(NSInteger)component
+{
+    [self changeFilter2:_ListOfFilters[row]];
+}
+#pragma mark - PickerView Visibility
 -(BOOL)canBecomeFirstResponder{
     return YES;
 }
@@ -490,10 +551,116 @@ NSDictionary *SupportedLevers = nil;
 }
 -(NSArray *)FillWheelWithThese{
     //temporary start with three
-    return @[@"CISepiaTone",
+    //return @[@"CIColorMonochrome",
+   //          @"CISepiaTone",
+   //          @"CIColorControls"];
+#warning todo: Go through each filter and test to see that you have properly handled the levers.  there may be more than just "inputIntensity" so look it up!
+    /**All 90+ filters should techically work. In the worse case it will
+     crash.  In the disappointing case, it wil show white.
+     
+     below is an array of filters that either show a good picture or a moded picture
+     
+     W - means white picture
+     C - means crash app
+     */
+    return @[
              @"CIColorMonochrome",
-             @"CIColorControls"];
-#warning todo: need to fill it with the filters that do work by default.
+             @"CISepiaTone",
+             @"CIColorControls",
+             /*W*///@"CIAdditionCompositing",
+             /*W*///@"CIAffineClamp",
+             /*W*///@"CIAffineTile",
+             @"CIAffineTransform",
+             @"CIBarsSwipeTransition",
+             /*W*///@"CIBlendWithMask",
+             @"CIBloom",
+             @"CIBumpDistortion",
+             @"CIBumpDistortionLinear",
+             /*C*///@"CICheckerboardGenerator",
+             /*W*///@"CICircleSplashDistortion",
+             @"CICircularScreen",
+             @"CIColorBlendMode",
+             @"CIColorBurnBlendMode",
+             @"CIColorControls",
+             @"CIColorCube",
+             @"CIColorDodgeBlendMode",
+             @"CIColorInvert",
+             /*W*///@"CIColorMap",
+             @"CIColorMatrix",
+             @"CIColorMonochrome",
+             @"CIColorPosterize",
+             /*C*///@"CIConstantColorGenerator",
+             /*W*///@"CICopyMachineTransition",
+             @"CICrop",
+             @"CIDarkenBlendMode",
+             @"CIDifferenceBlendMode",
+             /*W*///@"CIDisintegrateWithMaskTransition",
+             @"CIDissolveTransition",
+             @"CIDotScreen",
+             /*W*///@"CIEightfoldReflectedTile",
+             @"CIExclusionBlendMode",
+             @"CIExposureAdjust",
+             @"CIFalseColor",
+             @"CIFlashTransition",//it shows white...it might be working properly
+             /*W*///@"CIFourfoldReflectedTile",
+             /*W*///@"CIFourfoldRotatedTile",
+             /*W*///@"CIFourfoldTranslatedTile",
+             @"CIGammaAdjust",
+             @"CIGaussianBlur",
+             /*C*///@"CIGaussianGradient",
+             /*W*///@"CIGlideReflectedTile",
+             @"CIGloom",
+             @"CIHardLightBlendMode",
+             @"CIHatchedScreen",
+             @"CIHighlightShadowAdjust",
+             @"CIHoleDistortion",
+             @"CIHueAdjust",
+             @"CIHueBlendMode",
+             @"CILanczosScaleTransform",
+             @"CILightenBlendMode",
+             /*W*///@"CILightTunnel",
+             /*C*///@"CILinearGradient",
+             @"CILineScreen",
+             @"CILuminosityBlendMode",
+             /*W*///@"CIMaskToAlpha",
+             @"CIMaximumComponent",
+             /*W*///@"CIMaximumCompositing",
+             @"CIMinimumComponent",
+             /*W*///@"CIMinimumCompositing",
+             /*W*///@"CIModTransition",
+             @"CIMultiplyBlendMode",
+             /*W*///@"CIMultiplyCompositing",
+             @"CIOverlayBlendMode",
+             @"CIPinchDistortion",
+             @"CIPixellate",
+             /*C*///@"CIRadialGradient",
+             /*C*///@"CIRandomGenerator",
+             @"CISaturationBlendMode",
+             @"CIScreenBlendMode",
+             @"CISepiaTone",
+             @"CISharpenLuminance",
+             /*W*///@"CISixfoldReflectedTile",
+             /*W*///@"CISixfoldRotatedTile",
+             /*C*///@"CISmoothLinearGradient",
+             @"CISoftLightBlendMode",
+             /*W*///@"CISourceAtopCompositing",
+             /*W*///@"CISourceInCompositing",
+             /*W*///@"CISourceOutCompositing",
+             /*W*///@"CISourceOverCompositing",
+             /*C*///@"CIStarShineGenerator",
+             @"CIStraightenFilter",
+             /*C*///@"CIStripesGenerator",
+             /*W*///@"CISwipeTransition",
+             @"CITemperatureAndTint",
+             @"CIToneCurve",
+             /*W*///@"CITriangleKaleidoscope",
+             /*W*///@"CITwelvefoldReflectedTile",
+             @"CITwirlDistortion",
+             @"CIUnsharpMask",
+             @"CIVibrance",
+             @"CIVignette",
+             @"CIVortexDistortion",
+             @"CIWhitePointAdjust"];
 }
 @end
 

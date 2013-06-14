@@ -13,6 +13,8 @@
 @interface PhotoLeverViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 //@property (nonatomic, assign) id delegate;
 @property (weak, nonatomic) IBOutlet UIPickerView *WheelOfFilters;
+@property (strong, nonatomic) NSArray *ListOfFilters;
+
 @property (strong, nonatomic) CIContext *context;
 @property (strong, nonatomic) CIFilter *filter;
 @property (strong, nonatomic) CIImage *beginImage;

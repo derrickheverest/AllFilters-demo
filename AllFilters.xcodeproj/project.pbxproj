@@ -12,7 +12,6 @@
 		BD19B38A1767FF2B00CF3BFC /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = BD19B3891767FF2B00CF3BFC /* photo.png */; };
 		BD3599451766A87E0005CDA8 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = BD3599441766A87E0005CDA8 /* image.png */; };
 		BD4B724817679CA200CB9CC4 /* DHPairOfKeyAndValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4B724717679CA200CB9CC4 /* DHPairOfKeyAndValue.m */; };
-		BD4D04481769197B00DFEA11 /* PhotoWheelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4D04471769197B00DFEA11 /* PhotoWheelViewController.m */; };
 		BD56D9731766AD61008174A7 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD56D9721766AD61008174A7 /* CoreImage.framework */; };
 		BDCE3ED0176694AD00B2E1AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCE3ECF176694AD00B2E1AE /* UIKit.framework */; };
 		BDCE3ED2176694AD00B2E1AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCE3ED1176694AD00B2E1AE /* Foundation.framework */; };
@@ -34,8 +33,6 @@
 		BD3599441766A87E0005CDA8 /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		BD4B724617679CA200CB9CC4 /* DHPairOfKeyAndValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHPairOfKeyAndValue.h; sourceTree = "<group>"; };
 		BD4B724717679CA200CB9CC4 /* DHPairOfKeyAndValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPairOfKeyAndValue.m; sourceTree = "<group>"; };
-		BD4D04461769197B00DFEA11 /* PhotoWheelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoWheelViewController.h; sourceTree = "<group>"; };
-		BD4D04471769197B00DFEA11 /* PhotoWheelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoWheelViewController.m; sourceTree = "<group>"; };
 		BD56D9721766AD61008174A7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		BDCE3ECC176694AD00B2E1AE /* AllFilters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllFilters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDCE3ECF176694AD00B2E1AE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -115,8 +112,6 @@
 			children = (
 				BDCE3EDE176694AD00B2E1AE /* AppDelegate.h */,
 				BDCE3EDF176694AD00B2E1AE /* AppDelegate.m */,
-				BD4D04461769197B00DFEA11 /* PhotoWheelViewController.h */,
-				BD4D04471769197B00DFEA11 /* PhotoWheelViewController.m */,
 				BD4B724617679CA200CB9CC4 /* DHPairOfKeyAndValue.h */,
 				BD4B724717679CA200CB9CC4 /* DHPairOfKeyAndValue.m */,
 				BDCE3EE7176694AD00B2E1AE /* MainStoryboard_iPhone.storyboard */,
@@ -215,7 +210,6 @@
 				BDCE3EE0176694AD00B2E1AE /* AppDelegate.m in Sources */,
 				BDCE3EF7176695B500B2E1AE /* PhotoLeverViewController.m in Sources */,
 				BD4B724817679CA200CB9CC4 /* DHPairOfKeyAndValue.m in Sources */,
-				BD4D04481769197B00DFEA11 /* PhotoWheelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
