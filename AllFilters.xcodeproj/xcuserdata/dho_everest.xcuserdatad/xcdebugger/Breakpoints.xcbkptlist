@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392860978.938814"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392860978.938814"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "57"
-         endingLineNumber = "57"
+         startingLineNumber = "58"
+         endingLineNumber = "58"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392860978.938814"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "170"
-         endingLineNumber = "170"
+         startingLineNumber = "171"
+         endingLineNumber = "171"
          landmarkName = "-ChangeSliderValue_2:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392860978.938814"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "113"
-         endingLineNumber = "113"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "392"
-         endingLineNumber = "392"
+         startingLineNumber = "393"
+         endingLineNumber = "393"
          landmarkName = "-SetLabelAt:toName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "359"
-         endingLineNumber = "359"
+         startingLineNumber = "360"
+         endingLineNumber = "360"
          landmarkName = "-connectSliderToModifierAt:withDictionaryResult:WhenMatchingFilterName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,7 +125,20 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392864672.549586"
+         timestampString = "392879760.945319"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "159"
+         endingLineNumber = "159"
+         landmarkName = "-ChangeSliderValue_0:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AllFilters/PhotoLeverViewController.m"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "158"
@@ -134,28 +147,15 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392864854.211415"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "157"
-         endingLineNumber = "157"
-         landmarkName = "-ChangeSliderValue_0:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "326"
-         endingLineNumber = "326"
+         startingLineNumber = "327"
+         endingLineNumber = "327"
          landmarkName = "-SpecifyFilterToBe:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "354"
-         endingLineNumber = "354"
+         startingLineNumber = "355"
+         endingLineNumber = "355"
          landmarkName = "-connectSliderToModifierAt:withDictionaryResult:WhenMatchingFilterName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "346"
-         endingLineNumber = "346"
+         startingLineNumber = "347"
+         endingLineNumber = "347"
          landmarkName = "-connectSliderToModifierAt:withDictionaryResult:WhenMatchingFilterName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "377"
-         endingLineNumber = "377"
+         startingLineNumber = "378"
+         endingLineNumber = "378"
          landmarkName = "-connectSliderToModifierAt:withDictionaryResult:WhenMatchingFilterName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,11 +203,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "405"
-         endingLineNumber = "405"
+         startingLineNumber = "406"
+         endingLineNumber = "406"
          landmarkName = "-AdjustSliderInfoAt:WithDict:ofKey:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,11 +216,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "392879194.709731"
+         timestampString = "392879760.945319"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "420"
-         endingLineNumber = "420"
+         startingLineNumber = "421"
+         endingLineNumber = "421"
          landmarkName = "-AdjustSliderInfoAt:WithDict:ofKey:"
          landmarkType = "5">
       </FileBreakpoint>

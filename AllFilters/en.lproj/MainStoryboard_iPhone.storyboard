@@ -102,7 +102,7 @@
             <objects>
                 <viewController id="2WP-yF-WJ8" customClass="PhotoLeverViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0e9-kC-S9j">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mY0-aQ-ERu">
@@ -203,11 +203,15 @@
                                     <segue destination="6iE-7R-Lra" kind="unwind" unwindAction="unwindToFilterTableViewController:" id="yvZ-Vz-2fd"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGF-Lk-9Hq">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="xA1-6d-8e6"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kij-TT-3ss" firstAttribute="bottom" secondItem="2ST-2g-xjJ" secondAttribute="bottom" type="user" id="2bY-Xp-TAW"/>
-                            <constraint firstItem="EDH-6o-Wsf" firstAttribute="trailing" secondItem="mY0-aQ-ERu" secondAttribute="trailing" type="default" id="30F-lr-e02"/>
                             <constraint firstAttribute="trailing" secondItem="Sj2-qq-aE4" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="3IU-Ep-qmU"/>
                             <constraint firstAttribute="trailing" secondItem="R5T-bu-eoT" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="3Qo-lY-aX7"/>
                             <constraint firstItem="2ST-2g-xjJ" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="342" type="user" id="4il-Xu-2ta"/>
@@ -217,15 +221,16 @@
                             <constraint firstItem="tWk-kK-yHA" firstAttribute="bottom" secondItem="Sj2-qq-aE4" secondAttribute="bottom" type="user" id="CRE-tQ-fOB"/>
                             <constraint firstItem="n4p-X6-6Xe" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="369" type="user" id="CYW-dd-GVP"/>
                             <constraint firstItem="spv-l3-GcG" firstAttribute="leading" secondItem="83H-Su-uIE" secondAttribute="leading" type="default" id="DgN-hB-m8S"/>
+                            <constraint firstItem="EDH-6o-Wsf" firstAttribute="trailing" secondItem="mY0-aQ-ERu" secondAttribute="trailing" type="default" id="FON-cs-My5"/>
+                            <constraint firstItem="EGF-Lk-9Hq" firstAttribute="centerX" secondItem="K0p-oP-Kfx" secondAttribute="centerX" type="default" id="FP0-rE-gaU"/>
                             <constraint firstItem="83H-Su-uIE" firstAttribute="leading" secondItem="n4p-X6-6Xe" secondAttribute="leading" type="default" id="FcQ-qi-PYd"/>
-                            <constraint firstItem="K0p-oP-Kfx" firstAttribute="centerX" secondItem="mY0-aQ-ERu" secondAttribute="centerX" type="default" id="FzB-SN-ITL"/>
                             <constraint firstItem="tWk-kK-yHA" firstAttribute="leading" secondItem="spv-l3-GcG" secondAttribute="leading" type="default" id="GK2-fi-TX3"/>
                             <constraint firstItem="mY0-aQ-ERu" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" type="user" id="HZ1-Pl-xSP"/>
                             <constraint firstItem="spv-l3-GcG" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="429" type="user" id="HwZ-bA-LDf"/>
                             <constraint firstItem="R5T-bu-eoT" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="368" type="user" id="KJu-Z7-G9E"/>
+                            <constraint firstItem="EGF-Lk-9Hq" firstAttribute="bottom" secondItem="0e9-kC-S9j" secondAttribute="bottom" type="default" id="L2r-la-kRa"/>
                             <constraint firstItem="mY0-aQ-ERu" firstAttribute="leading" secondItem="0e9-kC-S9j" secondAttribute="leading" type="default" id="LYf-6J-JtB"/>
                             <constraint firstItem="Sj2-qq-aE4" firstAttribute="top" secondItem="1Zc-08-bG2" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="M0e-I4-3vQ"/>
-                            <constraint firstItem="K0p-oP-Kfx" firstAttribute="centerX" secondItem="0e9-kC-S9j" secondAttribute="centerX" type="default" id="Mha-wb-uPF"/>
                             <constraint firstItem="P5g-ff-ZNa" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="398" type="user" id="N3T-dE-5bX"/>
                             <constraint firstItem="Sj2-qq-aE4" firstAttribute="leading" secondItem="1Zc-08-bG2" secondAttribute="leading" type="default" id="NNt-8O-W9P"/>
                             <constraint firstItem="spv-l3-GcG" firstAttribute="bottom" secondItem="1Zc-08-bG2" secondAttribute="bottom" type="user" id="Nua-FF-0Rb"/>
@@ -233,14 +238,17 @@
                             <constraint firstItem="1Zc-08-bG2" firstAttribute="top" secondItem="P5g-ff-ZNa" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="Q9W-S7-meh"/>
                             <constraint firstItem="1Zc-08-bG2" firstAttribute="leading" secondItem="P5g-ff-ZNa" secondAttribute="leading" type="default" id="Qef-Q9-pD9"/>
                             <constraint firstItem="K0p-oP-Kfx" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="296" type="user" id="T2l-PS-haE"/>
+                            <constraint firstItem="EGF-Lk-9Hq" firstAttribute="leading" secondItem="0e9-kC-S9j" secondAttribute="leading" type="default" id="Tqd-4n-xze"/>
                             <constraint firstItem="n4p-X6-6Xe" firstAttribute="leading" secondItem="2ST-2g-xjJ" secondAttribute="leading" type="default" id="Ugf-XT-165"/>
                             <constraint firstItem="gPi-L3-lb1" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="296" type="user" id="Xs4-na-SN8"/>
                             <constraint firstItem="gPi-L3-lb1" firstAttribute="top" secondItem="mY0-aQ-ERu" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="b6L-Lv-qI8"/>
                             <constraint firstItem="P5g-ff-ZNa" firstAttribute="leading" secondItem="R5T-bu-eoT" secondAttribute="leading" type="default" id="bGm-bn-0ib"/>
                             <constraint firstItem="2ST-2g-xjJ" firstAttribute="leading" secondItem="0e9-kC-S9j" secondAttribute="leading" constant="4" id="cdV-ir-GlS"/>
                             <constraint firstItem="P5g-ff-ZNa" firstAttribute="top" secondItem="R5T-bu-eoT" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="dIL-LL-Vec"/>
+                            <constraint firstItem="EGF-Lk-9Hq" firstAttribute="trailing" secondItem="0e9-kC-S9j" secondAttribute="trailing" type="default" id="db3-BU-JHU"/>
                             <constraint firstItem="Sj2-qq-aE4" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="458" type="user" id="eov-T9-NI2"/>
                             <constraint firstItem="EDH-6o-Wsf" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="296" type="user" id="ep7-uT-Gvv"/>
+                            <constraint firstItem="EDH-6o-Wsf" firstAttribute="trailing" secondItem="0e9-kC-S9j" secondAttribute="trailing" type="default" id="i1N-GI-q01"/>
                             <constraint firstAttribute="trailing" secondItem="P5g-ff-ZNa" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="lIX-5o-T8g"/>
                             <constraint firstItem="gPi-L3-lb1" firstAttribute="leading" secondItem="0e9-kC-S9j" secondAttribute="leading" type="default" id="lwr-Fb-dcO"/>
                             <constraint firstAttribute="trailing" secondItem="Kij-TT-3ss" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ngL-Ic-UrQ"/>
@@ -254,6 +262,7 @@
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="FacePic" destination="mY0-aQ-ERu" id="Fqy-Ze-Duo"/>
                         <outlet property="GetSliderValue_0" destination="Kij-TT-3ss" id="ra0-53-qrX"/>
@@ -266,6 +275,7 @@
                         <outlet property="NameSlider_2" destination="83H-Su-uIE" id="LrQ-6c-kay"/>
                         <outlet property="NameSlider_3" destination="spv-l3-GcG" id="LCG-V9-sr9"/>
                         <outlet property="NameSlider_4" destination="tWk-kK-yHA" id="4ki-OM-0vc"/>
+                        <outlet property="WheelOfFilters" destination="EGF-Lk-9Hq" id="nW1-bF-uhA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="upx-dH-QbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -274,45 +284,6 @@
             <point key="canvasLocation" x="563" y="-164"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="PhotoLeverViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoLeverViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="ChangeSliderValue_0:"/>
-                <relationship kind="action" name="ChangeSliderValue_1:"/>
-                <relationship kind="action" name="ChangeSliderValue_2:"/>
-                <relationship kind="action" name="ChangeSliderValue_3:"/>
-                <relationship kind="action" name="ChangeSliderValue_4:"/>
-                <relationship kind="action" name="Choose2SavePhoto:"/>
-                <relationship kind="action" name="ChooseNewPhoto_b:"/>
-                <relationship kind="action" name="back:"/>
-                <relationship kind="outlet" name="FacePic" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="GetSliderValue_0" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_1" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_2" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_3" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_4" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="NameSlider_0" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_4" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PhotoWheelViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoWheelViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="Choose2SavePhoto:"/>
-                <relationship kind="action" name="ChooseNewPhoto_b:"/>
-                <relationship kind="action" name="back:"/>
-                <relationship kind="outlet" name="FacePic" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="WheelOfFilters" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

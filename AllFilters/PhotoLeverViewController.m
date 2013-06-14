@@ -54,6 +54,7 @@ NSDictionary *SupportedLevers = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self loadSupportedLevers];
     [self loadDefaultPhoto];
     [self loadDefaultLabels];
@@ -464,6 +465,35 @@ NSDictionary *SupportedLevers = nil;
     [[self GetSliderValue_4] setMaximumValue:0];
     [[self GetSliderValue_4] setMinimumValue:0];
     [[self GetSliderValue_4] setValue:0];
+}
+#pragma mark - Handling the Wheel of Filters
+-(BOOL)canBecomeFirstResponder{
+    return YES;
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
+-(void) motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    NSLog(@"motion began");
+    [_WheelOfFilters setHidden:([_WheelOfFilters isHidden])?NO:YES];
+}
+-(void) motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    //NSLog(@"motion cancled");
+}
+-(void) motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    //NSLog(@"motion ended");
+}
+-(NSArray *)FillWheelWithThese{
+    //temporary start with three
+    return @[@"CISepiaTone",
+             @"CIColorMonochrome",
+             @"CIColorControls"];
+#warning todo: need to fill it with the filters that do work by default.
 }
 @end
 
