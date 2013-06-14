@@ -26,7 +26,7 @@
 @property (strong, nonatomic) DHPairOfKeyAndValue *modifier_3;
 @property (strong, nonatomic) DHPairOfKeyAndValue *modifier_4;
 @property (strong, nonatomic) CIColor *lastColor;
-
+@property (strong, nonatomic) CIVector *lastVector;
 - (IBAction)ChooseNewPhoto_b:(id)sender;
 
 - (IBAction)Choose2SavePhoto:(id)sender;

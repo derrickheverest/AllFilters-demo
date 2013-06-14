@@ -22,12 +22,21 @@
 #define mySELInputSaturation @selector(modInputSaturationByThisValue:)
 #define mySELInputBrightness @selector(modInputBrightnessByThisValue:)
 #define mySELInputContrast @selector(modInputContrastByThisValue:)
+#define mySELInputCubeDimension @selector(modInputCubeDimensionByThisValue:)
+#define mySELInputCenterX @selector(modInputCenterXByThisValue:)
+#define mySELInputCenterY @selector(modInputCenterYByThisValue:)
+#define mySELInputSharpness @selector(modInputSharpnessByThisValue:)
+#define mySELInputWidth @selector(modInputWidthByThisValue:)
 
 #define mykInputIntensity @"inputIntensity"
 #define mykInputColor @"inputColor"
 #define mykInputSaturation @"inputSaturation"
 #define mykInputBrightness @"inputBrightness"
 #define mykInputContrast @"inputContrast"
+#define mykInputCubeDimension @"inputCubeDimension"
+#define mykInputCenter @"inputCenter"
+#define mykInputSharpness @"inputSharpness"
+#define mykInputWidth @"inputWidth"
 
 NSDictionary *SupportedLevers = nil;
 
@@ -70,37 +79,7 @@ NSDictionary *SupportedLevers = nil;
     [self ChangeSliderValue_3:[self GetSliderValue_3]];
     [self ChangeSliderValue_4:[self GetSliderValue_4]];
     
-    if (_lastColor == nil) {
-        _lastColor = [CIColor colorWithString:@"0.5 0.5 0.5 1.0"];
-    }
-    
-    /**Set labels and connect modifiers*/
-//    if ([self modifier_0]) {
-//        [[self NameSlider_0] setText:[[self modifier_0] getKey]];
-//    }else{
-//        [[self NameSlider_0] setText:@""];
-//    }
-//    if ([self modifier_1]) {
-//        [[self NameSlider_1] setText:[[self modifier_1] getKey]];
-//    }else{
-//         [[self NameSlider_1] setText:@""];
-//    }
-//    if ([self modifier_2]) {
-//        [[self NameSlider_2] setText:[[self modifier_2] getKey]];
-//    }else{
-//         [[self NameSlider_2] setText:@""];
-//    }
-//    if ([self modifier_3]) {
-//        [[self NameSlider_3] setText:[[self modifier_3] getKey]];
-//    }else{
-//         [[self NameSlider_3] setText:@""];
-//    }
-//    if ([self modifier_4]) {
-//        [[self NameSlider_4] setText:[[self modifier_4] getKey]];
-//    }else{
-//         [[self NameSlider_4] setText:@""];
-//    }
-    
+   
     /**this is done here as opposed to prepareforsegue because here,things
      the image is susceptible to being set.*/
     
@@ -268,18 +247,35 @@ NSDictionary *SupportedLevers = nil;
                                                    setLabel:@"Brightness"],
       mykInputContrast: [[DHPairOfKeyAndValue new] setKey:mykInputContrast
                                                    setSEL:mySELInputContrast
-                                                 setLabel:@"Contrast"]
+                                                 setLabel:@"Contrast"],
+      mykInputCubeDimension: [[DHPairOfKeyAndValue new] setKey:mykInputCubeDimension
+                                                        setSEL:mySELInputCubeDimension
+                                                      setLabel:@"Cube Dimension"],
+      mykInputCenter:[NSArray arrayWithObjects:
+                      [[DHPairOfKeyAndValue new] setKey:mykInputCenter
+                                                 setSEL:mySELInputCenterX
+                                               setLabel:@"X-axis"],
+                      [[DHPairOfKeyAndValue new] setKey:mykInputCenter
+                                                 setSEL:mySELInputCenterY
+                                               setLabel:@"y-axis"],
+                      nil],
+      mykInputSharpness:[[DHPairOfKeyAndValue new] setKey:mykInputSharpness
+                                                   setSEL:mySELInputSharpness
+                                                 setLabel:@"Sharpness"],
+      mykInputWidth:[[DHPairOfKeyAndValue new] setKey:mykInputWidth
+                                               setSEL:mySELInputWidth
+                                             setLabel:@"Width"]
       };
 }
 - (void) modInputIntensityByThisValue:(NSNumber *)val{
-     [[self filter] setValue:val forKey:@"inputIntensity"];
+     [[self filter] setValue:val forKey:mykInputIntensity];
 }
 - (void) modInputColorRedByThisValue:(NSNumber *)val
 {
     CIColor *color = [CIColor colorWithRed:val.floatValue
                                      green:_lastColor.green
                                       blue:_lastColor.blue];
-    [[self filter] setValue:color forKey:@"inputColor"];
+    [[self filter] setValue:color forKey:mykInputColor];
     _lastColor = color;
 }
 - (void) modInputColorGreenByThisValue:(NSNumber *)val
@@ -287,7 +283,7 @@ NSDictionary *SupportedLevers = nil;
     CIColor *color = [CIColor colorWithRed:_lastColor.red
                                      green:val.floatValue
                                       blue:_lastColor.blue];
-    [[self filter] setValue:color forKey:@"inputColor"];
+    [[self filter] setValue:color forKey:mykInputColor];
     _lastColor = color;
 }
 - (void) modInputColorBlueByThisValue:(NSNumber *)val
@@ -295,23 +291,42 @@ NSDictionary *SupportedLevers = nil;
     CIColor *color = [CIColor colorWithRed:_lastColor.red
                                      green:_lastColor.green
                                       blue:val.floatValue];
-    [[self filter] setValue:color forKey:@"inputColor"];
+    [[self filter] setValue:color forKey:mykInputColor];
     _lastColor = color;
 }
 - (void) modInputSaturationByThisValue:(NSNumber *)val
 {
-    [[self filter] setValue:val forKey:@"inputSaturation"];
+    [[self filter] setValue:val forKey:mykInputSaturation];
 }
 - (void) modInputBrightnessByThisValue:(NSNumber *)val
 {
-    [[self filter] setValue:val forKey:@"inputBrightness"];
+    [[self filter] setValue:val forKey:mykInputBrightness];
 }
 - (void) modInputContrastByThisValue:(NSNumber *)val
 {
-    [[self filter] setValue:val forKey:@"inputContrast"];
+    [[self filter] setValue:val forKey:mykInputContrast];
 }
-
-
+- (void) modInputCubeDimensionByThisValue:(NSNumber *)val
+{
+#warning Currently causes an exception. Will have to research this a bit more
+    //[[self filter] setValue:val forKey:@"inputCubeDimension"];
+}
+- (void) modInputCenterXByThisValue:(NSNumber *)val{
+    CIVector *vector = [CIVector vectorWithX:val.floatValue Y:_lastVector.Y];
+    [[self filter] setValue:vector forKey:mykInputCenter];
+    _lastVector = vector;
+}
+- (void) modInputCenterYByThisValue:(NSNumber *)val{
+    CIVector *vector = [CIVector vectorWithX:_lastVector.X Y:val.floatValue];
+    [[self filter] setValue:vector forKey:mykInputCenter];
+    _lastVector = vector;
+}
+-(void) modInputSharpnessByThisValue:(NSNumber *)val{
+    [[self filter] setValue:val forKey:mykInputSharpness];
+}
+-(void) modInputWidthByThisValue:(NSNumber *)val{
+    [[self filter] setValue:val forKey:mykInputWidth];
+}
 #pragma mark - Load Defaults
 -(void)loadDefaultModifiers{
     _modifier_0 = _modifier_1 = _modifier_2 =
@@ -473,18 +488,38 @@ NSDictionary *SupportedLevers = nil;
     
     if( attrib_dict ){
         if([attrib_dict[@"CIAttributeClass"] isEqualToString:@"NSNumber"]){
-        UISlider *sliderRef = sliderArray[index];
-        [sliderRef setMaximumValue:[attrib_dict[@"CIAttributeSliderMax"] floatValue]];
-        [sliderRef setMinimumValue:[attrib_dict[@"CIAttributeSliderMin"] floatValue]];
-        [sliderRef setValue:[attrib_dict[@"CIAttributeDefault"] floatValue]];
+            UISlider *sliderRef = sliderArray[index];
+            NSNumber *attributeMaxValue = attrib_dict[@"CIAttributeSliderMax"];
+            NSNumber *attributeMinValue = attrib_dict[@"CIAttributeSliderMin"];
+            if (!attributeMaxValue) {
+                attributeMaxValue = attrib_dict[@"CIAttributeMax"];}
+            if (!attributeMinValue) {attributeMinValue = attrib_dict[@"CIAttributeMin"];}
+            [sliderRef setMaximumValue:[attributeMaxValue floatValue]];
+            [sliderRef setMinimumValue:[attributeMinValue floatValue]];
+            [sliderRef setValue:[attrib_dict[@"CIAttributeDefault"] floatValue]];
         }else if([attrib_dict[@"CIAttributeClass"] isEqualToString:@"CIColor"]){
+            _lastColor = [CIColor colorWithString:@"0.5 0.5 0.5 1.0"];
             UISlider *sliderRef = sliderArray[index];
             [sliderRef setMaximumValue:1.0];
             [sliderRef setMinimumValue:0.0];
             [sliderRef setValue:0.8];
+        }else if([attrib_dict[@"CIAttributeClass"] isEqualToString:@"CIVector"]){
+            _lastVector = [CIVector vectorWithX:_FacePic.frame.size.width/2
+                                              Y:_FacePic.frame.size.height/2];
+            UISlider *sliderRef = sliderArray[index];
+            [sliderRef setMaximumValue:_FacePic.frame.size.width];
+            [sliderRef setMinimumValue:0];
+            [sliderRef setValue:_lastVector.X];
+            if( index + 1 <= 4){
+                UISlider *sliderRef = sliderArray[index + 1];
+                [sliderRef setMaximumValue:_FacePic.frame.size.height];
+                [sliderRef setMinimumValue:0];
+                [sliderRef setValue:_lastVector.Y];
+            }
+            
         }else{
             @throw [NSException exceptionWithName:@"Unknown CIAttributeClass"
-                                           reason:@"The type of attribute class will tell the program what kinds of data to find in the dictionary.  It will use this info to determine the best way to handle the sliders. ie. NSNumber woudl have a slider min and max, but an CIColor would not have that, you'd have to put in a default"
+                                           reason:[NSString stringWithFormat:@"%@ \n\n %@", @"The type of attribute class will tell the program what kinds of data to find in the dictionary.  It will use this info to determine the best way to handle the sliders. ie. NSNumber woudl have a slider min and max, but an CIColor would not have that, you'd have to put in a default" , attrib_dict]
                                          userInfo:nil];
         }
         return true;
@@ -579,9 +614,9 @@ numberOfRowsInComponent:(NSInteger)component
      C - means crash app
      */
     return @[
-             @"CIColorMonochrome",
-             @"CISepiaTone",
-             @"CIColorControls",
+             @"CIColorMonochrome",//ok
+             @"CISepiaTone",//ok
+             @"CIColorControls",//ok
              /*W*///@"CIAdditionCompositing",
              /*W*///@"CIAffineClamp",
              /*W*///@"CIAffineTile",
@@ -593,16 +628,16 @@ numberOfRowsInComponent:(NSInteger)component
              @"CIBumpDistortionLinear",
              /*C*///@"CICheckerboardGenerator",
              /*W*///@"CICircleSplashDistortion",
-             @"CICircularScreen",
+             @"CICircularScreen",//ok
              @"CIColorBlendMode",
              @"CIColorBurnBlendMode",
              @"CIColorControls",
              @"CIColorCube",
              @"CIColorDodgeBlendMode",
-             @"CIColorInvert",
+             @"CIColorInvert",//ok
              /*W*///@"CIColorMap",
              @"CIColorMatrix",
-             @"CIColorMonochrome",
+             @"CIColorMonochrome",//ok
              @"CIColorPosterize",
              /*C*///@"CIConstantColorGenerator",
              /*W*///@"CICopyMachineTransition",
