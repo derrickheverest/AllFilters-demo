@@ -15,19 +15,6 @@
 #import "PhotoLeverViewController.h"
 #import "DHPairOfKeyAndValue.h"
 
-#define mySELInputIntensity @selector(modInputIntensityByThisValue:)
-#define mySELInputColorRed @selector(modInputColorRedByThisValue:)
-#define mySELInputColorGreen @selector(modInputColorGreenByThisValue:)
-#define mySELInputColorBlue @selector(modInputColorBlueByThisValue:)
-#define mySELInputSaturation @selector(modInputSaturationByThisValue:)
-#define mySELInputBrightness @selector(modInputBrightnessByThisValue:)
-#define mySELInputContrast @selector(modInputContrastByThisValue:)
-#define mySELInputCubeDimension @selector(modInputCubeDimensionByThisValue:)
-#define mySELInputCenterX @selector(modInputCenterXByThisValue:)
-#define mySELInputCenterY @selector(modInputCenterYByThisValue:)
-#define mySELInputSharpness @selector(modInputSharpnessByThisValue:)
-#define mySELInputWidth @selector(modInputWidthByThisValue:)
-
 #define mykInputIntensity @"inputIntensity"
 #define mykInputColor @"inputColor"
 #define mykInputSaturation @"inputSaturation"
@@ -38,6 +25,7 @@
 #define mykInputSharpness @"inputSharpness"
 #define mykInputWidth @"inputWidth"
 #define mykInputRadius @"inputRadius"
+#define mykInputAngle @"inputAngle"
 
 NSDictionary *SupportedLevers = nil;
 
@@ -113,84 +101,6 @@ NSDictionary *SupportedLevers = nil;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (IBAction)ChooseNewPhoto_b:(id)sender {
-    UIImagePickerController *pickerC = [UIImagePickerController new];
-    [pickerC setDelegate:self];
-    [self presentViewController:pickerC
-                       animated:YES
-                     completion:NULL];
-}
-
-- (IBAction)Choose2SavePhoto:(id)sender {
-    /**Only works on real device*/
-    
-    // 1
-    CIImage *saveToSave = [[self filter] outputImage];
-    // 2
-    CIContext *softwareContext = [CIContext
-                                  contextWithOptions:@{kCIContextUseSoftwareRenderer : @(YES)} ];
-    // 3
-    CGImageRef cgImg = [softwareContext createCGImage:saveToSave
-                                             fromRect:[saveToSave extent]];
-    // 4
-    ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
-    [library writeImageToSavedPhotosAlbum:cgImg
-                                 metadata:[saveToSave properties]
-                          completionBlock:^(NSURL *assetURL, NSError *error) {
-                              // 5
-                              CGImageRelease(cgImg);
-                          }];
-}
-
-- (IBAction)back:(id)sender {
-}
-
-- (IBAction)ChangeSliderValue_0:(UISlider *)sender {
-    if (_modifier_0 == nil) return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:[_modifier_0 sel] withObject:@(sender.value)];
-#pragma clang diagnostic pop
-    //[self modInputIntensityByThisValue:@(sender.value)];
-    [self reapplyFiltersToCurrentImage];
-}
-- (IBAction)ChangeSliderValue_1:(UISlider *)sender{
-    if (_modifier_1 == nil) return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:[_modifier_1 sel] withObject:@(sender.value)];
-#pragma clang diagnostic pop
-    [self reapplyFiltersToCurrentImage];
-}
-
-- (IBAction)ChangeSliderValue_2:(UISlider *)sender{
-    if (_modifier_2 == nil) return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:[_modifier_2 sel] withObject:@(sender.value)];
-#pragma clang diagnostic pop
-    [self reapplyFiltersToCurrentImage];
-}
-
-- (IBAction)ChangeSliderValue_3:(UISlider *)sender{
-    if (_modifier_3 == nil) return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:[_modifier_3 sel] withObject:@(sender.value)];
-#pragma clang diagnostic pop
-    [self reapplyFiltersToCurrentImage];
-}
-
-- (IBAction)ChangeSliderValue_4:(UISlider *)sender{
-    if (_modifier_4 == nil) return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:[_modifier_4 sel] withObject:@(sender.value)];
-#pragma clang diagnostic pop
-    [self reapplyFiltersToCurrentImage];
-}
-
 - (void) reapplyFiltersToCurrentImage{
     /**This should happen inside a slider  It reapplys the filter*/
     CIImage *outputImage = [[self filter] outputImage];
@@ -202,144 +112,107 @@ NSDictionary *SupportedLevers = nil;
     CGImageRelease(cgimg);
 }
 
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
-    //NSLog(@"%@", info);
-    /**change current image*/
-    //get a new reference to the image we just picked
-    UIImage *gotImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    //convert UIImage into CGImage then to CIImage
-    [self setBeginImage:[CIImage imageWithCGImage:[gotImage CGImage]]];
-    //update the uiimageview with new photo
-    [[self filter] setValue:[self beginImage] forKey:kCIInputImageKey];
-       
-    
-    //apply values of sliders onto filter
-    [self ChangeSliderValue_0:[self GetSliderValue_0]];
-    [self ChangeSliderValue_1:[self GetSliderValue_1]];
-    [self ChangeSliderValue_2:[self GetSliderValue_2]];
-    [self ChangeSliderValue_3:[self GetSliderValue_3]];
-    [self ChangeSliderValue_4:[self GetSliderValue_4]];
-    
-    //
-    [self reapplyFiltersToCurrentImage];
-    
-}
--(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissViewControllerAnimated:YES
-                             completion:NULL];
-}
-
 #pragma mark - Supported Levers
 - (void) loadSupportedLevers{
-    if(SupportedLevers){ return;}
-    
+    if(SupportedLevers){
+        return;
+    }
     SupportedLevers =
     @{mykInputColor:[NSArray arrayWithObjects:
                      [[DHPairOfKeyAndValue new] setKey:mykInputColor
-                                                setSEL:mySELInputColorRed
-                                              setLabel:@"Red"],
+                                              setLabel:@"Red"
+                                              setBlock:^(NSNumber *val) {
+                                                  CIColor *color = [CIColor colorWithRed:val.floatValue
+                                                                                   green:_lastColor.green
+                                                                                    blue:_lastColor.blue];
+                                                  [[self filter] setValue:color forKey:mykInputColor];
+                                                  _lastColor = color;
+                                              }],
                      [[DHPairOfKeyAndValue new] setKey:mykInputColor
-                                                setSEL:mySELInputColorGreen
-                                              setLabel:@"Green"],
+                                              setLabel:@"Green"
+                                              setBlock:^(NSNumber *val) {
+                                                  CIColor *color = [CIColor colorWithRed:_lastColor.red
+                                                                                   green:val.floatValue
+                                                                                    blue:_lastColor.blue];
+                                                  [[self filter] setValue:color forKey:mykInputColor];
+                                                  _lastColor = color;
+                                              }],
                      [[DHPairOfKeyAndValue new] setKey:mykInputColor
-                                                setSEL:mySELInputColorBlue
-                                              setLabel:@"Blue"],
-                     nil],
+                                              setLabel:@"Blue"
+                                              setBlock:^(NSNumber *val) {
+                                                  CIColor *color = [CIColor colorWithRed:_lastColor.red
+                                                                                   green:_lastColor.green
+                                                                                    blue:val.floatValue];
+                                                  [[self filter] setValue:color forKey:mykInputColor];
+                                                  _lastColor = color;
+                                              }], nil],
       mykInputIntensity: [[DHPairOfKeyAndValue new] setKey:mykInputIntensity
-                                                    setSEL:mySELInputIntensity
-                                                  setLabel:@"Intensity"],
+                                                  setLabel:@"Intensity"
+                                                  setBlock:^(NSNumber *val) {
+                                                      [[self filter] setValue:val forKey:mykInputIntensity];
+                                                  }],
       mykInputSaturation: [[DHPairOfKeyAndValue new] setKey:mykInputSaturation
-                                                     setSEL:mySELInputSaturation
-                                                   setLabel:@"Saturation"],
+                                                   setLabel:@"Saturation"
+                                                   setBlock:^(NSNumber *val) {
+                                                       [[self filter] setValue:val forKey:mykInputSaturation];
+                                                   }],
       mykInputBrightness: [[DHPairOfKeyAndValue new] setKey:mykInputBrightness
-                                                     setSEL:mySELInputBrightness
-                                                   setLabel:@"Brightness"],
+                                                   setLabel:@"Brightness"
+                                                   setBlock:^(NSNumber *val) {
+                                                       [[self filter] setValue:val forKey:mykInputBrightness];
+                                                   }],
       mykInputContrast: [[DHPairOfKeyAndValue new] setKey:mykInputContrast
-                                                   setSEL:mySELInputContrast
-                                                 setLabel:@"Contrast"],
+                                                 setLabel:@"Contrast"
+                                                 setBlock:^(NSNumber *val) {
+                                                     [[self filter] setValue:val forKey:mykInputContrast];
+                                                 }],
       mykInputCubeDimension: [[DHPairOfKeyAndValue new] setKey:mykInputCubeDimension
-                                                        setSEL:mySELInputCubeDimension
-                                                      setLabel:@"Cube Dimension"],
+                                                      setLabel:@"Cube Dimension"
+                                                      setBlock:^(NSNumber *val) {
+#warning Currently causes an exception. Will have to research this a bit more
+                                                          //[[self filter] setValue:val forKey:@"inputCubeDimension"];
+                                                      }],
       mykInputCenter:[NSArray arrayWithObjects:
                       [[DHPairOfKeyAndValue new] setKey:mykInputCenter
-                                                 setSEL:mySELInputCenterX
-                                               setLabel:@"X-axis"],
+                                               setLabel:@"X-axis"
+                                               setBlock:^(NSNumber *val) {
+                                                   CIVector *vector =
+                                                   [CIVector vectorWithX:val.floatValue
+                                                                       Y:_lastVector.Y];
+                                                   [[self filter] setValue:vector forKey:mykInputCenter];
+                                                   _lastVector = vector;
+                                               }],
                       [[DHPairOfKeyAndValue new] setKey:mykInputCenter
-                                                 setSEL:mySELInputCenterY
-                                               setLabel:@"y-axis"],
-                      nil],
+                                               setLabel:@"y-axis"
+                                               setBlock:^(NSNumber *val) {
+                                                   CIVector *vector =
+                                                   [CIVector vectorWithX:_lastVector.X
+                                                                       Y:val.floatValue];
+                                                   [[self filter] setValue:vector forKey:mykInputCenter];
+                                                   _lastVector = vector;
+                                               }], nil],
       mykInputSharpness:[[DHPairOfKeyAndValue new] setKey:mykInputSharpness
-                                                   setSEL:mySELInputSharpness
-                                                 setLabel:@"Sharpness"],
+                                                 setLabel:@"Sharpness"
+                                                 setBlock:^(NSNumber *val) {
+                                                     [[self filter] setValue:val forKey:mykInputSharpness];
+                                                 }],
       mykInputWidth:[[DHPairOfKeyAndValue new] setKey:mykInputWidth
-                                               setSEL:mySELInputWidth
-                                             setLabel:@"Width"]
+                                             setLabel:@"Width"
+                                             setBlock:^(NSNumber *val) {
+                                                 [[self filter] setValue:val forKey:mykInputWidth];
+                                             }],
+      mykInputRadius:[[DHPairOfKeyAndValue new] setKey:mykInputRadius
+                                              setLabel:@"Radius"
+                                              setBlock:^(NSNumber *val){
+                                                  [[self filter] setValue:val forKey:mykInputRadius];
+                                                  //NSLog(@"just performed inputRadius");
+                                              }],
+      mykInputAngle:[[ DHPairOfKeyAndValue new] setKey:mykInputAngle
+                                              setLabel:@"Angle"
+                                              setBlock:^(NSNumber *val) {
+                                                  [[self filter] setValue:val forKey:mykInputAngle];
+                                              }]
       };
-}
-- (void) modInputIntensityByThisValue:(NSNumber *)val{
-     [[self filter] setValue:val forKey:mykInputIntensity];
-}
-- (void) modInputColorRedByThisValue:(NSNumber *)val
-{
-    CIColor *color = [CIColor colorWithRed:val.floatValue
-                                     green:_lastColor.green
-                                      blue:_lastColor.blue];
-    [[self filter] setValue:color forKey:mykInputColor];
-    _lastColor = color;
-}
-- (void) modInputColorGreenByThisValue:(NSNumber *)val
-{
-    CIColor *color = [CIColor colorWithRed:_lastColor.red
-                                     green:val.floatValue
-                                      blue:_lastColor.blue];
-    [[self filter] setValue:color forKey:mykInputColor];
-    _lastColor = color;
-}
-- (void) modInputColorBlueByThisValue:(NSNumber *)val
-{
-    CIColor *color = [CIColor colorWithRed:_lastColor.red
-                                     green:_lastColor.green
-                                      blue:val.floatValue];
-    [[self filter] setValue:color forKey:mykInputColor];
-    _lastColor = color;
-}
-- (void) modInputSaturationByThisValue:(NSNumber *)val
-{
-    [[self filter] setValue:val forKey:mykInputSaturation];
-}
-- (void) modInputBrightnessByThisValue:(NSNumber *)val
-{
-    [[self filter] setValue:val forKey:mykInputBrightness];
-}
-- (void) modInputContrastByThisValue:(NSNumber *)val
-{
-    [[self filter] setValue:val forKey:mykInputContrast];
-}
-- (void) modInputCubeDimensionByThisValue:(NSNumber *)val
-{
-#warning Currently causes an exception. Will have to research this a bit more
-    //[[self filter] setValue:val forKey:@"inputCubeDimension"];
-}
-- (void) modInputCenterXByThisValue:(NSNumber *)val{
-    CIVector *vector = [CIVector vectorWithX:val.floatValue Y:_lastVector.Y];
-    [[self filter] setValue:vector forKey:mykInputCenter];
-    _lastVector = vector;
-}
-- (void) modInputCenterYByThisValue:(NSNumber *)val{
-    CIVector *vector = [CIVector vectorWithX:_lastVector.X Y:val.floatValue];
-    [[self filter] setValue:vector forKey:mykInputCenter];
-    _lastVector = vector;
-}
--(void) modInputSharpnessByThisValue:(NSNumber *)val{
-    [[self filter] setValue:val forKey:mykInputSharpness];
-}
--(void) modInputWidthByThisValue:(NSNumber *)val{
-    [[self filter] setValue:val forKey:mykInputWidth];
-}
--(void) modInputRadiusByThisValue:(NSNumber *)val{
-    [[self filter] setValue:val forKey:mykInputRadius];
 }
 #pragma mark - Load Defaults
 -(void)loadDefaultModifiers{
@@ -568,6 +441,133 @@ NSDictionary *SupportedLevers = nil;
     [[self GetSliderValue_4] setMinimumValue:0];
     [[self GetSliderValue_4] setValue:0];
 }
+
+#pragma maek - Photo Library
+- (IBAction)ChooseNewPhoto_b:(id)sender {
+    UIImagePickerController *pickerC = [UIImagePickerController new];
+    [pickerC setDelegate:self];
+    [self presentViewController:pickerC
+                       animated:YES
+                     completion:NULL];
+}
+
+- (IBAction)Choose2SavePhoto:(id)sender {
+    /**Only works on real device*/
+    
+    // 1
+    CIImage *saveToSave = [[self filter] outputImage];
+    // 2
+    CIContext *softwareContext = [CIContext
+                                  contextWithOptions:@{kCIContextUseSoftwareRenderer : @(YES)} ];
+    // 3
+    CGImageRef cgImg = [softwareContext createCGImage:saveToSave
+                                             fromRect:[saveToSave extent]];
+    // 4
+    ALAssetsLibrary* library = [[ALAssetsLibrary alloc] init];
+    [library writeImageToSavedPhotosAlbum:cgImg
+                                 metadata:[saveToSave properties]
+                          completionBlock:^(NSURL *assetURL, NSError *error) {
+                              // 5
+                              CGImageRelease(cgImg);
+                          }];
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
+    //NSLog(@"%@", info);
+    /**change current image*/
+    //get a new reference to the image we just picked
+    UIImage *gotImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //convert UIImage into CGImage then to CIImage
+    [self setBeginImage:[CIImage imageWithCGImage:[gotImage CGImage]]];
+    //update the uiimageview with new photo
+    [[self filter] setValue:[self beginImage] forKey:kCIInputImageKey];
+    
+    
+    //apply values of sliders onto filter
+    [self ChangeSliderValue_0:[self GetSliderValue_0]];
+    [self ChangeSliderValue_1:[self GetSliderValue_1]];
+    [self ChangeSliderValue_2:[self GetSliderValue_2]];
+    [self ChangeSliderValue_3:[self GetSliderValue_3]];
+    [self ChangeSliderValue_4:[self GetSliderValue_4]];
+    
+    //
+    [self reapplyFiltersToCurrentImage];
+    
+}
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES
+                             completion:NULL];
+}
+
+
+#pragma mark - UISlider Sliders
+- (IBAction)ChangeSliderValue_0:(UISlider *)sender {
+    if (_modifier_0 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if([self respondsToSelector:[_modifier_0 sel]]){
+        [self performSelector:[_modifier_0 sel] withObject:@(sender.value)];
+    }else{
+        _modifier_0->SavedBlock([NSNumber numberWithFloat:sender.value]);
+    }
+#pragma clang diagnostic pop
+    //[self modInputIntensityByThisValue:@(sender.value)];
+    [self reapplyFiltersToCurrentImage];
+}
+- (IBAction)ChangeSliderValue_1:(UISlider *)sender{
+    if (_modifier_1 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if([self respondsToSelector:[_modifier_1 sel]]){
+        [self performSelector:[_modifier_1 sel] withObject:@(sender.value)];
+    }else{
+        _modifier_1->SavedBlock([NSNumber numberWithFloat:sender.value]);
+    }
+#pragma clang diagnostic pop
+    [self reapplyFiltersToCurrentImage];
+}
+
+- (IBAction)ChangeSliderValue_2:(UISlider *)sender{
+    if (_modifier_2 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if([self respondsToSelector:[_modifier_2 sel]]){
+        [self performSelector:[_modifier_2 sel] withObject:@(sender.value)];
+    }else{
+        _modifier_2->SavedBlock([NSNumber numberWithFloat:sender.value]);
+    }
+#pragma clang diagnostic pop
+    [self reapplyFiltersToCurrentImage];
+}
+
+- (IBAction)ChangeSliderValue_3:(UISlider *)sender{
+    if (_modifier_3 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if([self respondsToSelector:[_modifier_3 sel]]){
+        [self performSelector:[_modifier_3 sel] withObject:@(sender.value)];
+    }else{
+        _modifier_3->SavedBlock([NSNumber numberWithFloat:sender.value]);
+    }
+#pragma clang diagnostic pop
+    [self reapplyFiltersToCurrentImage];
+}
+
+- (IBAction)ChangeSliderValue_4:(UISlider *)sender{
+    if (_modifier_4 == nil) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if([self respondsToSelector:[_modifier_4 sel]]){
+        [self performSelector:[_modifier_4 sel] withObject:@(sender.value)];
+    }else{
+        _modifier_4->SavedBlock([NSNumber numberWithFloat:sender.value]);
+    }
+#pragma clang diagnostic pop
+    [self reapplyFiltersToCurrentImage];
+}
+
 #pragma mark - Handling the Wheel of Filters
 #pragma mark - PickerView DataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -638,20 +638,18 @@ numberOfRowsInComponent:(NSInteger)component
 #warning ok  @"CIColorControls",//ok
 #warning ok  @"CICircularScreen",//ok
 #warning ok  @"CIColorInvert",//ok             
-             
+#warning ok  @"CIBloom",
+#warning ok  @"CIWhitePointAdjust"
+#warning ok  @"CIVortexDistortion",
              @"CIAffineTransform",
              @"CIBarsSwipeTransition",
-             @"CIBloom",
              @"CIBumpDistortion",
              @"CIBumpDistortionLinear",
-
              @"CIColorBlendMode",
              @"CIColorBurnBlendMode",
              @"CIColorCube",
              @"CIColorDodgeBlendMode",
-
              @"CIColorMatrix",
-             
              @"CIColorPosterize",
              @"CICrop",
              @"CIDarkenBlendMode",
@@ -691,8 +689,8 @@ numberOfRowsInComponent:(NSInteger)component
              @"CIUnsharpMask",
              @"CIVibrance",
              @"CIVignette",
-             @"CIVortexDistortion",
-             @"CIWhitePointAdjust"
+             
+             
              
 #warning blank filters
              /*W*///@"CIFourfoldReflectedTile",
