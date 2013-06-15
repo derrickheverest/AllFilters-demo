@@ -8,25 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "393017528.729531"
+         timestampString = "393022478.841815"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "506"
-         endingLineNumber = "506"
-         landmarkName = "-AdjustSliderInfoAt:WithDict:ofKey:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "393017528.729531"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "323"
-         endingLineNumber = "323"
-         landmarkName = "-modInputCubeDimensionByThisValue:"
+         startingLineNumber = "382"
+         endingLineNumber = "382"
+         landmarkName = "-SpecifyFilterToBe:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -34,12 +21,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "393017528.729531"
+         timestampString = "393022478.841815"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "61"
+         endingLineNumber = "61"
+         landmarkName = "-initWithNibName:bundle:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
