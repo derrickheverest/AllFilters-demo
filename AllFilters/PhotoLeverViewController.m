@@ -640,7 +640,7 @@ numberOfRowsInComponent:(NSInteger)component
 #warning ok  @"CIColorInvert",//ok             
 #warning ok  @"CIBloom",
 #warning ok  @"CIWhitePointAdjust"
-             
+#warning ok  @"CIVortexDistortion",
              @"CIAffineTransform",
              @"CIBarsSwipeTransition",
              @"CIBumpDistortion",
@@ -689,7 +689,7 @@ numberOfRowsInComponent:(NSInteger)component
              @"CIUnsharpMask",
              @"CIVibrance",
              @"CIVignette",
-             @"CIVortexDistortion",
+             
              
              
 #warning blank filters
