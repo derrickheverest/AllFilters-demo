@@ -20,12 +20,20 @@
 #define mykInputSaturation @"inputSaturation"
 #define mykInputBrightness @"inputBrightness"
 #define mykInputContrast @"inputContrast"
-#define mykInputCubeDimension @"inputCubeDimension"
 #define mykInputCenter @"inputCenter"
 #define mykInputSharpness @"inputSharpness"
 #define mykInputWidth @"inputWidth"
 #define mykInputRadius @"inputRadius"
 #define mykInputAngle @"inputAngle"
+#define mykInputAmount @"inputAmount"
+#define mykInputPower @"inputPower"
+#define mykInputEV @"inputEV"
+#define mykInputAspectRatio @"inputAspectRatio"
+#define mykInputScale @"inputScale"
+#define mykInputLevels @"inputLevels"
+#define mykInputHighlightAmount @"inputHighlightAmount"
+#define mykInputShadowAmount @"inputShadowAmount"
+#define mykInputRotation @"inputRotation"
 
 NSDictionary *SupportedLevers = nil;
 
@@ -146,6 +154,25 @@ NSDictionary *SupportedLevers = nil;
                                                   [[self filter] setValue:color forKey:mykInputColor];
                                                   _lastColor = color;
                                               }], nil],
+      mykInputCenter:[NSArray arrayWithObjects:
+                      [[DHPairOfKeyAndValue new] setKey:mykInputCenter
+                                               setLabel:@"Center X-axis"
+                                               setBlock:^(NSNumber *val) {
+                                                   CIVector *vector =
+                                                   [CIVector vectorWithX:val.floatValue
+                                                                       Y:_lastVector.Y];
+                                                   [[self filter] setValue:vector forKey:mykInputCenter];
+                                                   _lastVector = vector;
+                                               }],
+                      [[DHPairOfKeyAndValue new] setKey:mykInputCenter
+                                               setLabel:@"Center y-axis"
+                                               setBlock:^(NSNumber *val) {
+                                                   CIVector *vector =
+                                                   [CIVector vectorWithX:_lastVector.X
+                                                                       Y:val.floatValue];
+                                                   [[self filter] setValue:vector forKey:mykInputCenter];
+                                                   _lastVector = vector;
+                                               }], nil],
       mykInputIntensity: [[DHPairOfKeyAndValue new] setKey:mykInputIntensity
                                                   setLabel:@"Intensity"
                                                   setBlock:^(NSNumber *val) {
@@ -166,31 +193,6 @@ NSDictionary *SupportedLevers = nil;
                                                  setBlock:^(NSNumber *val) {
                                                      [[self filter] setValue:val forKey:mykInputContrast];
                                                  }],
-      mykInputCubeDimension: [[DHPairOfKeyAndValue new] setKey:mykInputCubeDimension
-                                                      setLabel:@"Cube Dimension"
-                                                      setBlock:^(NSNumber *val) {
-#warning Currently causes an exception. Will have to research this a bit more
-                                                          //[[self filter] setValue:val forKey:@"inputCubeDimension"];
-                                                      }],
-      mykInputCenter:[NSArray arrayWithObjects:
-                      [[DHPairOfKeyAndValue new] setKey:mykInputCenter
-                                               setLabel:@"X-axis"
-                                               setBlock:^(NSNumber *val) {
-                                                   CIVector *vector =
-                                                   [CIVector vectorWithX:val.floatValue
-                                                                       Y:_lastVector.Y];
-                                                   [[self filter] setValue:vector forKey:mykInputCenter];
-                                                   _lastVector = vector;
-                                               }],
-                      [[DHPairOfKeyAndValue new] setKey:mykInputCenter
-                                               setLabel:@"y-axis"
-                                               setBlock:^(NSNumber *val) {
-                                                   CIVector *vector =
-                                                   [CIVector vectorWithX:_lastVector.X
-                                                                       Y:val.floatValue];
-                                                   [[self filter] setValue:vector forKey:mykInputCenter];
-                                                   _lastVector = vector;
-                                               }], nil],
       mykInputSharpness:[[DHPairOfKeyAndValue new] setKey:mykInputSharpness
                                                  setLabel:@"Sharpness"
                                                  setBlock:^(NSNumber *val) {
@@ -207,11 +209,56 @@ NSDictionary *SupportedLevers = nil;
                                                   [[self filter] setValue:val forKey:mykInputRadius];
                                                   //NSLog(@"just performed inputRadius");
                                               }],
-      mykInputAngle:[[ DHPairOfKeyAndValue new] setKey:mykInputAngle
+      mykInputAngle:[[DHPairOfKeyAndValue new] setKey:mykInputAngle
                                               setLabel:@"Angle"
                                               setBlock:^(NSNumber *val) {
                                                   [[self filter] setValue:val forKey:mykInputAngle];
-                                              }]
+                                              }],
+      mykInputAmount:[[DHPairOfKeyAndValue new] setKey:mykInputAmount
+                                              setLabel:@"Amount"
+                                              setBlock:^(NSNumber *val) {
+                                                  [[self filter] setValue:val forKey:mykInputAmount];
+                                              }],
+      mykInputPower:[[DHPairOfKeyAndValue new] setKey:mykInputPower
+                                             setLabel:@"Power"
+                                             setBlock:^(NSNumber *val) {
+                                                 [[self filter] setValue:val forKey:mykInputPower];
+                                             }],
+      mykInputEV:[[DHPairOfKeyAndValue new] setKey:mykInputEV
+                                          setLabel:@"EV"
+                                          setBlock:^(NSNumber *val) {
+                                              [[self filter] setValue:val forKey:mykInputEV];
+                                          }],
+      mykInputAspectRatio:[[DHPairOfKeyAndValue new] setKey:mykInputAspectRatio
+                                          setLabel:@"Aspect Ratio"
+                                          setBlock:^(NSNumber *val) {
+                                              [[self filter] setValue:val forKey:mykInputAspectRatio];
+                                          }],
+      mykInputScale:[[DHPairOfKeyAndValue new] setKey:mykInputScale
+                                          setLabel:@"Scale"
+                                          setBlock:^(NSNumber *val) {
+                                              [[self filter] setValue:val forKey:mykInputScale];
+                                          }],
+      mykInputLevels:[[DHPairOfKeyAndValue new] setKey:mykInputLevels
+                                              setLabel:@"Levels"
+                                              setBlock:^(NSNumber *val) {
+                                                  [[self filter] setValue:val forKey:mykInputLevels];
+                                              }],
+      mykInputHighlightAmount:[[DHPairOfKeyAndValue new] setKey:mykInputHighlightAmount
+                                                       setLabel:@"Highlight"
+                                                       setBlock:^(NSNumber *val) {
+                                                           [[self filter] setValue:val forKey:mykInputHighlightAmount];
+                                                       }],
+      mykInputShadowAmount:[[DHPairOfKeyAndValue new] setKey:mykInputShadowAmount
+                                                    setLabel:@"Shadow"
+                                                    setBlock:^(NSNumber *val) {
+                                                        [[self filter] setValue:val forKey:mykInputShadowAmount];
+                                                    }],
+      mykInputRotation:[[DHPairOfKeyAndValue new] setKey:mykInputRotation
+                                                setLabel:@"Rotation"
+                                                setBlock:^(NSNumber *val) {
+                                                    [[self filter] setValue:val forKey:mykInputRotation];
+                                                }]
       };
 }
 #pragma mark - Load Defaults
@@ -633,64 +680,64 @@ numberOfRowsInComponent:(NSInteger)component
      C - means crash app
      */
     return @[
-             @"CIColorMonochrome",//ok
-#warning ok  @"CISepiaTone",//ok
-#warning ok  @"CIColorControls",//ok
-#warning ok  @"CICircularScreen",//ok
-#warning ok  @"CIColorInvert",//ok             
-#warning ok  @"CIBloom",
-#warning ok  @"CIWhitePointAdjust"
-#warning ok  @"CIVortexDistortion",
-             @"CIAffineTransform",
-             @"CIBarsSwipeTransition",
-             @"CIBumpDistortion",
-             @"CIBumpDistortionLinear",
-             @"CIColorBlendMode",
-             @"CIColorBurnBlendMode",
-             @"CIColorCube",
-             @"CIColorDodgeBlendMode",
-             @"CIColorMatrix",
-             @"CIColorPosterize",
-             @"CICrop",
-             @"CIDarkenBlendMode",
-             @"CIDifferenceBlendMode",
-             @"CIDissolveTransition",
-             @"CIDotScreen",
-             @"CIExclusionBlendMode",
-             @"CIExposureAdjust",
-             @"CIFalseColor",
-             @"CIGammaAdjust",
-             @"CIGaussianBlur",
-             @"CIGloom",
-             @"CIHardLightBlendMode",
-             @"CIHatchedScreen",
-             @"CIHighlightShadowAdjust",
-             @"CIHoleDistortion",
-             @"CIHueAdjust",
-             @"CIHueBlendMode",
-             @"CILanczosScaleTransform",
-             @"CILightenBlendMode",
-             @"CILineScreen",
-             @"CILuminosityBlendMode",
-             @"CIMaximumComponent",
-             @"CIMinimumComponent",
-             @"CIMultiplyBlendMode",
-             @"CIOverlayBlendMode",
-             @"CIPinchDistortion",
-             @"CIPixellate",
-             @"CISaturationBlendMode",
-             @"CIScreenBlendMode",
+             @"CIColorMonochrome",
+             @"CISepiaTone",
+             @"CIColorControls",
              @"CISharpenLuminance",
-             @"CISoftLightBlendMode",
-             @"CIStraightenFilter",
-             @"CITemperatureAndTint",
-             @"CIToneCurve",
+             @"CICircularScreen",
+             @"CIColorInvert",
+             @"CIBloom",
+             @"CIWhitePointAdjust"
+             @"CIVortexDistortion",
              @"CITwirlDistortion",
              @"CIUnsharpMask",
              @"CIVibrance",
              @"CIVignette",
+             @"CIBumpDistortion",
+             @"CIBumpDistortionLinear", //looks like a flag waving in the wind
+             @"CIColorPosterize",
+             @"CIDotScreen",
+             @"CIExposureAdjust",
+             @"CIGammaAdjust",
+             @"CIGaussianBlur",
+             @"CIGloom",
+             @"CILanczosScaleTransform",
+             @"CIPixellate",
+             @"CIHatchedScreen",
+             @"CIHighlightShadowAdjust",
+             @"CIHoleDistortion",//feels like a singularity...
+             @"CIHueAdjust",
+             @"CILineScreen",
+             @"CIMaximumComponent",
+             @"CIMinimumComponent",
+             @"CIPinchDistortion",
              
+             @"CIStraightenFilter",
+#warning test  @"CITemperatureAndTint",//needs 2 vector
+#warning test  @"CIToneCurve",//needs 4 points
              
+#warning test  @"CIAffineTransform",
+#warning test  @"CIDissolveTransition",
+#warning test  @"CIBarsSwipeTransition",
+#warning test  @"CIColorBlendMode",//blend modes require a second image
+#warning test  @"CIColorBurnBlendMode",//blend modes require a second image
+#warning test  @"CIColorDodgeBlendMode",//blend modes require a second image
+#warning test  @"CIDarkenBlendMode",//blend modes require a second image
+#warning test  @"CIDifferenceBlendMode",//blend modes require a second image
+#warning test  @"CIMultiplyBlendMode",//blend modes require a second image
+#warning test  @"CIOverlayBlendMode",//blend modes require a second image
+#warning test  @"CIExclusionBlendMode",//blend modes require a second image
+#warning test  @"CIHardLightBlendMode",//blend modes require a second image
+#warning test  @"CILuminosityBlendMode",//blend modes require a second image
+#warning test  @"CIHueBlendMode",//blend modes require a second image
+#warning test  @"CISaturationBlendMode",//blend modes require a second image
+#warning test  @"CIScreenBlendMode",//blend modes require a second image
+#warning test  @"CISoftLightBlendMode",//blend modes require a second image
+#warning test  @"CILightenBlendMode",//blend modes require a second image
+#warning test  @"CIFalseColor",//requires 6 levers.  we only have 5
+#warning test  @"CIColorCube",
+#warning test  @"CIColorMatrix",//needs lots of vectors...LOTS
+#warning test  @"CICrop",
              
 #warning blank filters
              /*W*///@"CIFourfoldReflectedTile",
