@@ -15,4 +15,8 @@
     self->_label = L;
     return self;
 }
+-(id) setKey:(NSString *)k setLabel:(NSString *)L setBlock:(void (^)())sblk{
+    self->SavedBlock = sblk;
+    return [self setKey:k setSEL:nil setLabel:L];
+}
 @end

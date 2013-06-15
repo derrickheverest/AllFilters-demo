@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DHPairOfKeyAndValue : NSObject
+@interface DHPairOfKeyAndValue : NSObject{
+    void (^SavedBlock)(void);
+}
 @property (strong, nonatomic) NSString *label;
 @property (strong, nonatomic) NSString *key;
 @property SEL sel;
--(id) setKey:(NSString *)key setSEL:(SEL) sel setLabel:(NSString *)L;
+-(id) setKey:(NSString *)key setSEL:(SEL)sel setLabel:(NSString *)L;
+-(id) setKey:(NSString *)key setLabel:(NSString *)L setBlock:(void(^)(void))sblk;
 @end

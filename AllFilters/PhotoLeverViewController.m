@@ -37,6 +37,7 @@
 #define mykInputCenter @"inputCenter"
 #define mykInputSharpness @"inputSharpness"
 #define mykInputWidth @"inputWidth"
+#define mykInputRadius @"inputRadius"
 
 NSDictionary *SupportedLevers = nil;
 
@@ -64,6 +65,16 @@ NSDictionary *SupportedLevers = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UITapGestureRecognizer *swiper = [[UITapGestureRecognizer alloc]
+                                        initWithTarget:self
+                                        action:@selector(hideShowWheel)];
+    [swiper setNumberOfTouchesRequired:1];
+    [swiper setNumberOfTapsRequired:2];
+    [_FacePic addGestureRecognizer:swiper];
+
+    
+    
+    ////////
     [_WheelOfFilters setHidden:YES];
     _ListOfFilters = [self FillWheelWithThese];
     [self loadSupportedLevers];
@@ -327,6 +338,9 @@ NSDictionary *SupportedLevers = nil;
 -(void) modInputWidthByThisValue:(NSNumber *)val{
     [[self filter] setValue:val forKey:mykInputWidth];
 }
+-(void) modInputRadiusByThisValue:(NSNumber *)val{
+    [[self filter] setValue:val forKey:mykInputRadius];
+}
 #pragma mark - Load Defaults
 -(void)loadDefaultModifiers{
     _modifier_0 = _modifier_1 = _modifier_2 =
@@ -589,16 +603,21 @@ numberOfRowsInComponent:(NSInteger)component
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
 }
--(void) motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
-    NSLog(@"motion began");
+-(void) hideShowWheel{
     [_WheelOfFilters setHidden:([_WheelOfFilters isHidden])?NO:YES];
 }
--(void) motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event{
-    //NSLog(@"motion cancled");
-}
--(void) motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event{
-    //NSLog(@"motion ended");
-}
+
+
+//-(void) motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+//    NSLog(@"motion began");
+//    [_WheelOfFilters setHidden:([_WheelOfFilters isHidden])?NO:YES];
+//}
+//-(void) motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+//    //NSLog(@"motion cancled");
+//}
+//-(void) motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+//    //NSLog(@"motion ended");
+//}
 -(NSArray *)FillWheelWithThese{
     //temporary start with three
     //return @[@"CIColorMonochrome",
@@ -615,50 +634,35 @@ numberOfRowsInComponent:(NSInteger)component
      */
     return @[
              @"CIColorMonochrome",//ok
-             @"CISepiaTone",//ok
-             @"CIColorControls",//ok
-             /*W*///@"CIAdditionCompositing",
-             /*W*///@"CIAffineClamp",
-             /*W*///@"CIAffineTile",
+#warning ok  @"CISepiaTone",//ok
+#warning ok  @"CIColorControls",//ok
+#warning ok  @"CICircularScreen",//ok
+#warning ok  @"CIColorInvert",//ok             
+             
              @"CIAffineTransform",
              @"CIBarsSwipeTransition",
-             /*W*///@"CIBlendWithMask",
              @"CIBloom",
              @"CIBumpDistortion",
              @"CIBumpDistortionLinear",
-             /*C*///@"CICheckerboardGenerator",
-             /*W*///@"CICircleSplashDistortion",
-             @"CICircularScreen",//ok
+
              @"CIColorBlendMode",
              @"CIColorBurnBlendMode",
-             @"CIColorControls",
              @"CIColorCube",
              @"CIColorDodgeBlendMode",
-             @"CIColorInvert",//ok
-             /*W*///@"CIColorMap",
+
              @"CIColorMatrix",
-             @"CIColorMonochrome",//ok
+             
              @"CIColorPosterize",
-             /*C*///@"CIConstantColorGenerator",
-             /*W*///@"CICopyMachineTransition",
              @"CICrop",
              @"CIDarkenBlendMode",
              @"CIDifferenceBlendMode",
-             /*W*///@"CIDisintegrateWithMaskTransition",
              @"CIDissolveTransition",
              @"CIDotScreen",
-             /*W*///@"CIEightfoldReflectedTile",
              @"CIExclusionBlendMode",
              @"CIExposureAdjust",
              @"CIFalseColor",
-             @"CIFlashTransition",//it shows white...it might be working properly
-             /*W*///@"CIFourfoldReflectedTile",
-             /*W*///@"CIFourfoldRotatedTile",
-             /*W*///@"CIFourfoldTranslatedTile",
              @"CIGammaAdjust",
              @"CIGaussianBlur",
-             /*C*///@"CIGaussianGradient",
-             /*W*///@"CIGlideReflectedTile",
              @"CIGloom",
              @"CIHardLightBlendMode",
              @"CIHatchedScreen",
@@ -668,49 +672,74 @@ numberOfRowsInComponent:(NSInteger)component
              @"CIHueBlendMode",
              @"CILanczosScaleTransform",
              @"CILightenBlendMode",
-             /*W*///@"CILightTunnel",
-             /*C*///@"CILinearGradient",
              @"CILineScreen",
              @"CILuminosityBlendMode",
-             /*W*///@"CIMaskToAlpha",
              @"CIMaximumComponent",
-             /*W*///@"CIMaximumCompositing",
              @"CIMinimumComponent",
-             /*W*///@"CIMinimumCompositing",
-             /*W*///@"CIModTransition",
              @"CIMultiplyBlendMode",
-             /*W*///@"CIMultiplyCompositing",
              @"CIOverlayBlendMode",
              @"CIPinchDistortion",
              @"CIPixellate",
-             /*C*///@"CIRadialGradient",
-             /*C*///@"CIRandomGenerator",
              @"CISaturationBlendMode",
              @"CIScreenBlendMode",
-             @"CISepiaTone",
              @"CISharpenLuminance",
-             /*W*///@"CISixfoldReflectedTile",
-             /*W*///@"CISixfoldRotatedTile",
-             /*C*///@"CISmoothLinearGradient",
              @"CISoftLightBlendMode",
-             /*W*///@"CISourceAtopCompositing",
-             /*W*///@"CISourceInCompositing",
-             /*W*///@"CISourceOutCompositing",
-             /*W*///@"CISourceOverCompositing",
-             /*C*///@"CIStarShineGenerator",
              @"CIStraightenFilter",
-             /*C*///@"CIStripesGenerator",
-             /*W*///@"CISwipeTransition",
              @"CITemperatureAndTint",
              @"CIToneCurve",
-             /*W*///@"CITriangleKaleidoscope",
-             /*W*///@"CITwelvefoldReflectedTile",
              @"CITwirlDistortion",
              @"CIUnsharpMask",
              @"CIVibrance",
              @"CIVignette",
              @"CIVortexDistortion",
-             @"CIWhitePointAdjust"];
+             @"CIWhitePointAdjust"
+             
+#warning blank filters
+             /*W*///@"CIFourfoldReflectedTile",
+             /*W*///@"CIFourfoldRotatedTile",
+             /*W*///@"CIFourfoldTranslatedTile",
+             /*W*///@"CIGlideReflectedTile",
+             /*W*///@"CIEightfoldReflectedTile",
+             /*W*///@"CIAffineTile",
+             /*W*///@"CISixfoldReflectedTile",
+             /*W*///@"CISixfoldRotatedTile",
+             /*W*///@"CITwelvefoldReflectedTile",
+             
+             /*W*///@"CIMultiplyCompositing",
+             /*W*///@"CIMinimumCompositing",
+             /*W*///@"CIMaximumCompositing",
+             /*W*///@"CISourceAtopCompositing",
+             /*W*///@"CISourceInCompositing",
+             /*W*///@"CISourceOutCompositing",
+             /*W*///@"CISourceOverCompositing",
+             /*W*///@"CIAdditionCompositing",
+             
+             /*W*///@"CISwipeTransition",
+             /*W*///@"CICopyMachineTransition",
+             /*W*///@"CIDisintegrateWithMaskTransition",
+             /*W*///@"CIModTransition",
+             /*W*///@"CIFlashTransition",//it shows white...it might be working properly
+             
+             /*W*///@"CIMaskToAlpha",
+             /*W*///@"CIBlendWithMask",
+             /*W*///@"CILightTunnel",
+             /*W*///@"CIColorMap",
+             /*W*///@"CICircleSplashDistortion",
+             /*W*///@"CIAffineClamp",
+             /*W*///@"CITriangleKaleidoscope",
+             
+#warning crashing filters
+             /*C*///@"CIStarShineGenerator",
+             /*C*///@"CIStripesGenerator",
+             /*C*///@"CIRandomGenerator",
+             /*C*///@"CICheckerboardGenerator",
+             /*C*///@"CIConstantColorGenerator",
+             
+             /*C*///@"CISmoothLinearGradient",
+             /*C*///@"CIRadialGradient",
+             /*C*///@"CILinearGradient",
+             /*C*///@"CIGaussianGradient",
+             ];
 }
 @end
 

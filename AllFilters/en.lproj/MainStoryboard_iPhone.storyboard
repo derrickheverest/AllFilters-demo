@@ -12,7 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mY0-aQ-ERu">
+                            <imageView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="mY0-aQ-ERu">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="288" type="user" id="CRK-Tt-Fxt"/>
                                 </constraints>
@@ -72,6 +72,9 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ST-2g-xjJ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="pAV-wz-Rwh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -92,6 +95,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWk-kK-yHA">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="5bV-ZI-SAK"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -116,14 +122,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Kij-TT-3ss" firstAttribute="bottom" secondItem="2ST-2g-xjJ" secondAttribute="bottom" type="user" id="2bY-Xp-TAW"/>
+                            <constraint firstItem="tWk-kK-yHA" firstAttribute="top" secondItem="spv-l3-GcG" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0y1-Oa-d5D"/>
                             <constraint firstAttribute="trailing" secondItem="Sj2-qq-aE4" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="3IU-Ep-qmU"/>
                             <constraint firstAttribute="trailing" secondItem="R5T-bu-eoT" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="3Qo-lY-aX7"/>
                             <constraint firstItem="2ST-2g-xjJ" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="342" type="user" id="4il-Xu-2ta"/>
                             <constraint firstItem="K0p-oP-Kfx" firstAttribute="baseline" secondItem="gPi-L3-lb1" secondAttribute="baseline" type="user" id="5Hm-OI-hPP"/>
                             <constraint firstItem="1Zc-08-bG2" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="428" type="user" id="7s3-A7-n9b"/>
-                            <constraint firstItem="tWk-kK-yHA" firstAttribute="bottom" secondItem="Sj2-qq-aE4" secondAttribute="bottom" type="user" id="CRE-tQ-fOB"/>
                             <constraint firstItem="n4p-X6-6Xe" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="369" type="user" id="CYW-dd-GVP"/>
+                            <constraint firstItem="spv-l3-GcG" firstAttribute="top" secondItem="83H-Su-uIE" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DOO-Sz-Ouf"/>
                             <constraint firstItem="spv-l3-GcG" firstAttribute="leading" secondItem="83H-Su-uIE" secondAttribute="leading" type="default" id="DgN-hB-m8S"/>
                             <constraint firstItem="EGF-Lk-9Hq" firstAttribute="centerX" secondItem="K0p-oP-Kfx" secondAttribute="centerX" type="default" id="FP0-rE-gaU"/>
                             <constraint firstItem="83H-Su-uIE" firstAttribute="leading" secondItem="n4p-X6-6Xe" secondAttribute="leading" type="default" id="FcQ-qi-PYd"/>
@@ -136,10 +142,10 @@
                             <constraint firstItem="Sj2-qq-aE4" firstAttribute="top" secondItem="1Zc-08-bG2" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="M0e-I4-3vQ"/>
                             <constraint firstItem="P5g-ff-ZNa" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="398" type="user" id="N3T-dE-5bX"/>
                             <constraint firstItem="Sj2-qq-aE4" firstAttribute="leading" secondItem="1Zc-08-bG2" secondAttribute="leading" type="default" id="NNt-8O-W9P"/>
-                            <constraint firstItem="spv-l3-GcG" firstAttribute="bottom" secondItem="1Zc-08-bG2" secondAttribute="bottom" type="user" id="Nua-FF-0Rb"/>
                             <constraint firstItem="R5T-bu-eoT" firstAttribute="leading" secondItem="Kij-TT-3ss" secondAttribute="leading" type="default" id="PFi-vR-u9U"/>
                             <constraint firstItem="1Zc-08-bG2" firstAttribute="top" secondItem="P5g-ff-ZNa" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="Q9W-S7-meh"/>
                             <constraint firstItem="1Zc-08-bG2" firstAttribute="leading" secondItem="P5g-ff-ZNa" secondAttribute="leading" type="default" id="Qef-Q9-pD9"/>
+                            <constraint firstItem="83H-Su-uIE" firstAttribute="top" secondItem="n4p-X6-6Xe" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Sq5-yA-RfO"/>
                             <constraint firstItem="K0p-oP-Kfx" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="296" type="user" id="T2l-PS-haE"/>
                             <constraint firstItem="EGF-Lk-9Hq" firstAttribute="leading" secondItem="0e9-kC-S9j" secondAttribute="leading" type="default" id="Tqd-4n-xze"/>
                             <constraint firstItem="n4p-X6-6Xe" firstAttribute="leading" secondItem="2ST-2g-xjJ" secondAttribute="leading" type="default" id="Ugf-XT-165"/>
@@ -159,10 +165,8 @@
                             <constraint firstItem="mY0-aQ-ERu" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" type="user" id="oUd-2Y-EwV"/>
                             <constraint firstAttribute="trailing" secondItem="1Zc-08-bG2" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="qjN-rz-Opt"/>
                             <constraint firstItem="Kij-TT-3ss" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="341" type="user" id="sdr-dg-Jrp"/>
-                            <constraint firstItem="n4p-X6-6Xe" firstAttribute="bottom" secondItem="R5T-bu-eoT" secondAttribute="bottom" type="user" id="tU4-40-4bp"/>
                             <constraint firstItem="83H-Su-uIE" firstAttribute="top" secondItem="0e9-kC-S9j" secondAttribute="top" constant="399" type="user" id="vhM-wo-bFm"/>
                             <constraint firstItem="80u-JW-kSc" firstAttribute="trailing" secondItem="0e9-kC-S9j" secondAttribute="trailing" type="default" id="xOW-fZ-HkQ"/>
-                            <constraint firstItem="83H-Su-uIE" firstAttribute="bottom" secondItem="P5g-ff-ZNa" secondAttribute="bottom" type="user" id="yCj-nI-Sos"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -187,36 +191,6 @@
             <point key="canvasLocation" x="563" y="-164"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="PhotoLeverViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoLeverViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="ChangeSliderValue_0:"/>
-                <relationship kind="action" name="ChangeSliderValue_1:"/>
-                <relationship kind="action" name="ChangeSliderValue_2:"/>
-                <relationship kind="action" name="ChangeSliderValue_3:"/>
-                <relationship kind="action" name="ChangeSliderValue_4:"/>
-                <relationship kind="action" name="Choose2SavePhoto:"/>
-                <relationship kind="action" name="ChooseNewPhoto_b:"/>
-                <relationship kind="action" name="back:"/>
-                <relationship kind="outlet" name="FacePic" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="GetSliderValue_0" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_1" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_2" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_3" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="GetSliderValue_4" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="NameSlider_0" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="NameSlider_4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="WheelOfFilters" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
