@@ -65,10 +65,8 @@ NSDictionary *SupportedLevers = nil;
                                         initWithTarget:self
                                         action:@selector(hideShowWheel)];
     [swiper setNumberOfTouchesRequired:1];
-    [swiper setNumberOfTapsRequired:2];
+    [swiper setNumberOfTapsRequired:1];
     [_FacePic addGestureRecognizer:swiper];
-
-    
     
     ////////
     [_WheelOfFilters setHidden:YES];
@@ -687,7 +685,7 @@ numberOfRowsInComponent:(NSInteger)component
              @"CICircularScreen",
              @"CIColorInvert",
              @"CIBloom",
-             @"CIWhitePointAdjust"
+             @"CIWhitePointAdjust",
              @"CIVortexDistortion",
              @"CITwirlDistortion",
              @"CIUnsharpMask",

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AllFilters/PhotoLeverViewController.m"
-         timestampString = "393027462.55128"
+         timestampString = "393130245.456369"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "429"
-         endingLineNumber = "429"
+         startingLineNumber = "427"
+         endingLineNumber = "427"
          landmarkName = "-AdjustSliderInfoAt:WithDict:ofKey:"
          landmarkType = "5">
       </FileBreakpoint>
