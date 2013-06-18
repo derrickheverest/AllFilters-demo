@@ -10,7 +10,5 @@
 
 @interface ViewController : UIViewController //<UIPickerViewDataSource, UIPickerViewDelegate>
 - (IBAction)Button:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *WildCard;
-@property (weak, nonatomic) IBOutlet UIPickerView *WheelOfFilters;
-@property (strong, nonatomic) NSArray *AllFilterNames;
+
 @end

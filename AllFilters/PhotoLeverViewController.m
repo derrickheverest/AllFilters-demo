@@ -12,8 +12,34 @@
  inputIntensity.  It will take in one value from the sliders.
  */
 
+/*How to add more inputs that can potentially connect to sliders
+ 
+ 1) make a macro. (ie mykInputIntensity)
+ 2) Add that macro as a key to the nsdictionary called SupportedLevers
+ 2.5) Its initialization can be found in the method "loadSelectedLevers"
+ 3) Use the macro made in step one as a key
+ 4) The value will be either a DHPairOfKeyAndValue or an NSArray of DHPairOfKeyAndValue
+ 4.5) Set the key, label, and block.  The block should contain code that will modify attributes that
+      Effect the variables of the chosen filter.
+      The code will be executed inside the ChangeSliderValue_# methods (the same method that is called
+      When the uislider is changed.
+ */
+
+/*how to Add more sliders
+ 
+ 1) look in the implementation file for modifier_#
+ 2) A static amount of modifiers have been chosen and if you want more, you must add more
+ 3) Do the same for NameSlider
+ 4) change the method getNumOfUsedSliders so it contains the same num of modifiers as in the implementation file
+ 5) change the switch statement in connectSliderToModifierAt method to accomodate the number of modifiers
+ 6) sounds like alot of changes all around.  change the stuff associated with the number of sliders
+ at the time of this writing it goes form numbers 0 to 4.
+ 
+ */
+
 #import "PhotoLeverViewController.h"
 #import "DHPairOfKeyAndValue.h"
+#import "TheJulianFilter_mark1.h"
 
 #define mykInputIntensity @"inputIntensity"
 #define mykInputColor @"inputColor"
@@ -34,6 +60,9 @@
 #define mykInputHighlightAmount @"inputHighlightAmount"
 #define mykInputShadowAmount @"inputShadowAmount"
 #define mykInputRotation @"inputRotation"
+
+#define NUM_OF_SLIDERS 5
+#define NUM_OF_LABELS 5
 
 NSDictionary *SupportedLevers = nil;
 
@@ -281,6 +310,7 @@ NSDictionary *SupportedLevers = nil;
 - (void)loadDefaultFilter{
     //[self SpecifyFilterToBe:@"CISepiaTone"];
     [self SpecifyFilterToBe:@"CIColorMonochrome"];
+    //[self SpecifyFilterToBe:@"TheJulianFilter_mark1"];
 }
 
 #pragma mark - SpecifyFilter
@@ -295,20 +325,27 @@ NSDictionary *SupportedLevers = nil;
     for (NSString *validKey in FilterAttributes.allKeys) {
         id dictResult = SupportedLevers[validKey];
         if (dictResult == nil) { continue;}
-        i = ((_modifier_0)?1:0) + ((_modifier_1)?1:0) + ((_modifier_2)?1:0)
-        + ((_modifier_3)?1:0) + ((_modifier_4)?1:0);
-        if( i > 4 ){ break;}
+        i = [self getNumOfUsedSliders];
+        if( i >= NUM_OF_SLIDERS ){ break;}
         [self connectSliderToModifierAt:i
                    withDictionaryResult:dictResult
                  WhenMatchingFilterName:FilterName];
     }
 }
+- (int)getNumOfUsedSliders{
+    return
+    ((_modifier_0)?1:0) +
+    ((_modifier_1)?1:0) +
+    ((_modifier_2)?1:0) +
+    ((_modifier_3)?1:0) +
+    ((_modifier_4)?1:0);
+}
 - (BOOL)connectSliderToModifierAt:(NSInteger)index
              withDictionaryResult:(id)dictResult
            WhenMatchingFilterName:(NSString *)FilterName{
-    if (index < 0 || index > 4) {
+    if (index < 0 || index >= NUM_OF_SLIDERS) {
         @throw [NSException exceptionWithName:@"Out Of Range Exception"
-                                       reason:@"index must be 0,1,2,3, or 4" userInfo:nil];
+                                       reason:@"index must not excede num of modifiers" userInfo:nil];
         return false;
     }
     //huh? what does this line do?
@@ -332,7 +369,7 @@ NSDictionary *SupportedLevers = nil;
                 break;
             default:
                 @throw [NSException exceptionWithName:@"Out Of Range Exception"
-                                               reason:@"index must be 0,1,2,3, or 4" userInfo:nil];
+                                               reason:@"index must not exceed number of modifiers" userInfo:nil];
                 break;
         }
     }else if([dictResult isKindOfClass:[NSArray class]]){
@@ -387,7 +424,7 @@ NSDictionary *SupportedLevers = nil;
 
 #pragma mark - modify sliders and labels
 - (BOOL)SetLabelAt:(NSInteger) index toName:(NSString *)name{
-    if(index < 0 || index > 4) return false;
+    if(index < 0 || index >= NUM_OF_LABELS) return false;
     NSArray *sliderNameArray = @[_NameSlider_0,
                                  _NameSlider_1,
                                  _NameSlider_2,
@@ -656,6 +693,8 @@ numberOfRowsInComponent:(NSInteger)component
 //-(void) motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
 //    NSLog(@"motion began");
 //    [_WheelOfFilters setHidden:([_WheelOfFilters isHidden])?NO:YES];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    
 //}
 //-(void) motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event{
 //    //NSLog(@"motion cancled");
